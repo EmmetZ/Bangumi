@@ -1,0 +1,51 @@
+.shrink {
+  transition: transform 0.5s ease;
+  transform: scale(0.9);
+}
+
+button.more-character {
+  color: #aaa;
+  left: 80%
+}
+
+button.more-character:hover {
+  color: #0084B4;
+}
+
+.rating-card {
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.09);
+  border: 1px solid #F0F0F0;
+  border-radius: 15px;
+  background-image: linear-gradient(#f8f9f9, #f0f1f2 99%, #e4e4e5);
+  background-size: 40px 45px;
+  background-repeat: repeat-x
+}
+
+.ant-typography.board-title {
+  margin: 10px;
+}
+
+span.relation-link {
+  color: #0084B4;
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+  width: 75;
+  font-size: 12px;
+  display: inline-block;
+}
+
+span.relation-link:hover {
+  text-decoration: underline;
+}
+
+div.login-card {
+  padding: 20px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.09);
+  border-radius: 20px;
+  width: 35%;
+  min-width: 300px;
+  margin: 100px auto;
+}

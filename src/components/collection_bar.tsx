@@ -1,0 +1,59 @@
+import { Button, Flex, Grid, Select } from "antd";
+import { useContext } from "react";
+import { CollectionType } from "../types";
+import { AiOutlineMenuUnfold } from "react-icons/ai";
+import CollectionContext from "../contexts/collection";
+
+
+interface Props {
+  bp: string;
+  onCollapsed: () => void;
+}
+
+const CollectionBar = ({ bp, onCollapsed }: Props) => {
+  const { types, dispatch } = useContext(CollectionContext);
+  const value = [1, 2, 3, 4, 5];
+
+  let labels: string[];
+  if (types.subject_type === 4) {
+    labels = ["想玩", "玩过", "在玩", "搁置", "抛弃"];
+  } else if (types.subject_type === 3) {
+    labels = ["想听", "听过", "在听", "搁置", "抛弃"];
+  } else {
+    labels = ["想看", "看过", "在看", "搁置", "抛弃"];
+  }
+
+  if (bp === 'xs' || bp === 'sm' || bp === 'md') 
+    return (
+      <Flex gap='small'>
+        <Button 
+          onClick={onCollapsed}
+          icon={<AiOutlineMenuUnfold />}
+        />
+        <Select
+          value={value[types.type - 1]}
+          defaultValue={types.type}
+          options={labels.map((l, index) => ({ value: value[index], label: l }))}
+          onChange={(value) => {
+            dispatch({ type: "collection", value: value as CollectionType });
+          }}
+        />
+      </Flex>
+    );
+
+  return (
+    <Flex gap="middle">
+      {labels.map((l, index) => (
+        <Button
+          type={index + 1 === types.type ? "primary" : "dashed"}
+          key={value[index]}
+          onClick={() => dispatch({ type: "collection", value: (index + 1) as CollectionType })}
+        >
+          {l}
+        </Button>
+      ))}
+    </Flex>
+  );
+};
+
+export default CollectionBar;

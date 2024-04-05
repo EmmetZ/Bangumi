@@ -1,0 +1,23 @@
+div.custom-tooltip-wrapper {
+    visibility: visible;
+    pointer-events: none;
+    transform: translate(5px, -10px);
+    transition: transform 400ms ease 0s;
+}
+
+div.custom-tooltip {
+    margin: 0px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+p.tooltip-label {
+    margin: 0;
+    display: block;
+    padding: 8px 8px;
+    /* padding-top: 4px;
+    padding-bottom: 4px; */
+    color: rgb(136, 132, 216);
+}

@@ -1,0 +1,33 @@
+/* ref: https://bgm.tv */
+
+div.bg {
+    /* position: absolute; */
+    /* left: -40px; */
+    background: url('https://bgm.tv/img/rc3/bg_musume.png') 0 -10px no-repeat;
+    width: 40px;
+    height: 64px
+}
+
+div.musume_1 {
+    background-position: -40px 0
+}
+
+div.musume_2 {
+    background-position: -80px 0
+}
+
+div.musume_3 {
+    background-position: -120px 0
+}
+
+div.musume_4 {
+    background-position: -160px 0
+}
+
+div.musume_5 {
+    background-position: -200px 0
+}
+
+div.musume_6 {
+    background-position: -240px 0
+}

@@ -1,0 +1,24 @@
+span.tag {
+  background-color: #fff;
+}
+
+span.tag:hover {
+  background-color: #1c9be5;
+}
+
+span.tag:hover .tagname {
+  color: #fff;
+}
+
+span.tag:hover .tagcount{
+  color: #fff;
+}
+
+span.tag .tagname {
+  color: #0084b4
+}
+
+.tag-typography,
+.ant-tag {
+  user-select: none;
+}

@@ -1,0 +1,46 @@
+img.overview-main-cover {
+  background-color: #FFF;
+  margin-bottom: 5px;
+  padding: 2px;
+  border-top: 1px solid #C7C7C9;
+  border-left: 1px solid #A9A9AB;
+  border-right: 1px solid #A9A9AB;
+  border-bottom: 1px solid #858486;
+  -webkit-box-shadow: 0 1px 5px #AAA;
+  -moz-box-shadow: 0 1px 5px #AAA;
+  box-shadow: 0 1px 5px #AAA
+}
+
+span.character-avatar {
+  background-size: cover;
+  border-radius: 8px;
+  aspect-ratio: 1;
+  size: cover;
+  width: 48px;
+  height: 48px;
+}
+
+.border-shadow:hover {
+  box-shadow: inset #0084B4 0px 0px 4px 0px;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+.border-shadow {
+  box-shadow: inset #bbb 0px 0px 4px 0px;
+}
+
+img.collection-card-cover {
+  width: 100%;
+  border-radius: "10px";
+  object-fit: cover;
+  aspect-ratio: 3 / 4
+}
+
+span.relation-cover {
+  width: 75px;
+  height: 75px;
+  border-radius: 10px;
+  background-size: cover;
+  aspect-ratio: 1;
+  size: cover;
+}
