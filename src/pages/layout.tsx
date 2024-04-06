@@ -86,9 +86,8 @@ export const PrivateLayout = ({ children }: LayoutProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
+    if (!user) navigate('/login');
   }, [user]);
+
   return user ? <div>{children}</div> : <div>please login...</div>;
 };

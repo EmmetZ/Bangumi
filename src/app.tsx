@@ -10,15 +10,17 @@ import ApiClient from './services/api_client';
 const queryClient = new QueryClient();
 
 const App = () => {
-  // const userId = import.meta.env.VITE_USER_ID ?? -1;
-  const userId = -1;
+  const userId = import.meta.env.VITE_USER_ID ?? -1;
+  // const userId = -1
   const [user, dispatch] = useReducer(userReducer, undefined);
   const client = new ApiClient();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (userId === -1) return;
-    setLoading(true);
+    if (userId === -1) {
+      setLoading(false);
+      return;
+    }
     client
       .getUser(parseInt(userId))
       .then((res) => {
@@ -29,7 +31,7 @@ const App = () => {
         console.error(err);
         setLoading(false);
       });
-  }, [user]);
+  }, []);
 
   if (userId !== -1 && !user && isLoading)
     return (

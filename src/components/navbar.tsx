@@ -3,12 +3,13 @@ import '../styles/logo.css';
 import { useContext } from 'react';
 import UserContext from '../contexts/user';
 import { getAvatarUrl } from '../services/utils';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Compact } = Space;
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const loc = useLocation();
   const logoStyle = Math.ceil(Math.random() * 6);
   const { user, dispatch } = useContext(UserContext);
   return (
@@ -31,8 +32,8 @@ const NavBar = () => {
             avatarUrl={getAvatarUrl(user.avatar.large)}
             username={user.nickname}
             logout={() => {
-              dispatch({ type: 'remove' })
-              navigate('/login');
+              dispatch({ type: 'remove' });
+              if (loc.pathname === '/') navigate('/login');
             }}
           />
         ) : (
@@ -51,6 +52,7 @@ interface UserAvatarProps {
   logout: () => void;
 }
 const UserAvatar = ({ avatarUrl, username, logout }: UserAvatarProps) => {
+  const navigate = useNavigate();
   const content = (
     <div style={{ padding: 1 }}>
       <div>用户名: {username}</div>
@@ -61,7 +63,12 @@ const UserAvatar = ({ avatarUrl, username, logout }: UserAvatarProps) => {
   );
   return (
     <Popover content={content}>
-      <Avatar src={avatarUrl} size={40} shape='square' />
+      <Avatar
+        src={avatarUrl}
+        size={40}
+        shape='square'
+        onClick={() => navigate('/')}
+      />
     </Popover>
   );
 };

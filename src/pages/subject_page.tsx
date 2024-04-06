@@ -1,9 +1,9 @@
-import { Layout } from "antd";
-import { Outlet, useOutletContext, useParams } from "react-router-dom";
-import SubjectNavBar from "../components/subject_navbar";
-import { useSubject } from "../hooks/useSubject";
-import { Subject } from "../types";
-import { useEffect } from "react";
+import { Layout } from 'antd';
+import { Outlet, useOutletContext, useParams } from 'react-router-dom';
+import SubjectNavBar from '../components/subject_navbar';
+import { useSubject } from '../hooks/useSubject';
+import { Subject } from '../types';
+import { useEffect } from 'react';
 
 const { Header, Sider, Content } = Layout;
 const SubjectPage = () => {
@@ -17,13 +17,17 @@ const SubjectPage = () => {
     <Layout
       style={{
         // maxWidth: "1024px",
-        width: "80%",
-        left: "10%",
-        margin: "0 auto",
+        width: '80%',
+        left: '10%',
+        margin: '0 auto',
       }}
     >
-      <Header style={{ height: "100%" }}>
-        <SubjectNavBar name={subject.name} platform={subject.platform} />
+      <Header style={{ height: '100%' }}>
+        <SubjectNavBar
+          name={subject.name}
+          platform={subject.platform}
+          type={subject.type}
+        />
       </Header>
       <Content>
         <Outlet context={subject} />

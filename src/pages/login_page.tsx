@@ -10,23 +10,23 @@ type FieldType = {
 
 const LoginPage = () => {
   const { dispatch } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     const client = new ApiClient();
     if (values.userId) {
-      setIsLoading(true);
+      setLoading(true);
       client
         .getUser(values.userId)
         .then((res) => {
           dispatch({ type: 'set', value: res });
-          setIsLoading(false);
+          setLoading(false);
           navigate('/');
         })
         .catch((err) => {
           // console.error(err);
-          setIsLoading(false);
+          setLoading(false);
         });
     }
   };

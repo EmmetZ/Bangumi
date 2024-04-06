@@ -93,7 +93,9 @@ const Item = ({ hasRelation, item, hasDivider }: ItemProps) => {
           className='relation-cover border-shadow'
           draggable='false'
           style={{
-            backgroundImage: `url(${item.images.large})`,
+            backgroundImage: `url(${
+              item.images.large || 'https://bgm.tv/img/no_icon_subject.png'
+            })`,
             display: 'inline-block',
           }}
           // onClick={() => navigate(`/subject/${item.id}`)}
