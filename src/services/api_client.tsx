@@ -1,14 +1,18 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { resolve } from "path";
-import { rejects } from "assert";
-import { UserCollectionQuery, CollectionFetchRes } from "../hooks/types";
-import { User } from "../types";
+import axios, { AxiosRequestConfig } from 'axios';
+import { resolve } from 'path';
+import { rejects } from 'assert';
+import {
+  UserCollectionQuery,
+  FetchResponse,
+  Collection,
+} from '../hooks/types';
+import { Episode, User } from '../types';
 
 const MAX_RETRY_TIMES = 3;
 const RETRY_DELAY = 1000;
 
 const apiClient = axios.create({
-  baseURL: "https://api.bgm.tv",
+  baseURL: 'https://api.bgm.tv',
   timeout: 5 * 1000,
 });
 
@@ -18,7 +22,8 @@ function retryableRequest<T>(
   retry = MAX_RETRY_TIMES
 ) {
   return new Promise((resolve, reject) => {
-    apiClient.get<T>(endpoint, config)
+    apiClient
+      .get<T>(endpoint, config)
       .then((response) => {
         // 请求成功，直接将 Promise 状态变为 fulfilled
         resolve(response);
@@ -48,10 +53,9 @@ function retryableRequest<T>(
 }
 
 class ApiClient {
-
   getCollections(userId: number, query: UserCollectionQuery) {
     return apiClient
-      .get<CollectionFetchRes>(`/v0/users/${userId}/collections`, {
+      .get<FetchResponse<Collection>>(`/v0/users/${userId}/collections`, {
         params: { ...query },
       })
       .then((res) => res.data);
@@ -64,12 +68,19 @@ class ApiClient {
   // 改为可重复请求
   getSubject<T>(endpoint: string, config: AxiosRequestConfig) {
     return apiClient
-      .get<T>("/v0/subjects" + endpoint, { ...config })
+      .get<T>('/v0/subjects' + endpoint, { ...config })
       .then((res) => res.data);
   }
 
   getEpisodes(subjectId: number, config: AxiosRequestConfig) {
-    return apiClient.get
+    return apiClient
+      .get<FetchResponse<Episode>>('v0/episodes', {
+        params: {
+          subject_id: subjectId,
+          ...config,
+        },
+      })
+      .then((res) => res.data.data);
   }
 }
 

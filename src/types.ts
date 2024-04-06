@@ -48,6 +48,7 @@ export interface Subject {
     doing: number;
   };
   relation: string;
+  type: number;
 }
 
 export interface SubjectTag {
@@ -95,4 +96,17 @@ export interface User {
   nickname: string;
   id: number;
   // user_group: 1;
+}
+
+export interface Episode {
+  airdate: string;
+  comment: number;
+  desc: string;
+  duration: string;
+  id: number;
+  name: string;
+  name_cn: string;
+  sort: number;
+  subject_id: number;
+  ep: number;
 }

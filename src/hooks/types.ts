@@ -10,8 +10,8 @@ export interface UserCollectionQuery {
 }
 
 // user collection fetch response type
-export interface CollectionFetchRes {
-  data: Collection[];
+export interface FetchResponse<T> {
+  data: T[];
   limit: number;
   offset: number;
   total: number;
