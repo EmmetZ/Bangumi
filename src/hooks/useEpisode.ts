@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, CanceledError } from "axios";
 import { useState, useEffect } from "react";
 import ApiClient from "../services/api_client";
-import { Episode } from "./types";
+import { Episode } from "../types";
 
 const useEpisodes = (subjectId: number, config: AxiosRequestConfig = {}) => {
   const [data, setData] = useState<Episode[]>();
