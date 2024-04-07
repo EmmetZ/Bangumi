@@ -1,3 +1,4 @@
+import exp from "constants";
 import { ImgType } from "./hooks/types";
 
 /** 
@@ -19,6 +20,18 @@ subjectType
 6: 三次元
 */
 export type SubjectType = 1 | 2 | 3 | 4 | 6;
+
+/**
+EpType
+0: 本篇 
+1: 特别篇
+2: OP
+3: ED
+4: 预告/宣传/广告
+5: MAD
+6: 其他
+  */
+export type EpType = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 // user collection context state type
 // {
@@ -109,4 +122,5 @@ export interface Episode {
   sort: number;
   subject_id: number;
   ep: number;
+  type: EpType;
 }
