@@ -1,4 +1,4 @@
-import { Divider, FloatButton, Grid, Layout } from "antd";
+import { Divider, FloatButton, Layout } from "antd";
 import React, { useReducer, useState } from "react";
 import CollectionBar from "../components/collection_bar";
 import SubjectBar from "../components/subject_bar";
@@ -8,7 +8,6 @@ import CollectionContext, { collectionReducer } from "../contexts/collection";
 import { PrivateLayout } from "./layout";
 
 const { Header, Content } = Layout;
-const { useBreakpoint } = Grid;
 
 const CollectionPage: React.FC = () => {
   const [types, dispatch] = useReducer(collectionReducer, {
@@ -17,12 +16,7 @@ const CollectionPage: React.FC = () => {
   });
   const [collapsed, setCollapsed] = useState(true);
   const onCollapsed = () => setCollapsed(!collapsed);
-  const screens = useBreakpoint();
-  const bp = Object.entries(screens)
-    .filter((screen) => !!screen[1])
-    .pop();
 
-  if (!bp) return null;
   // 响应式设计，小屏减小margin
   return (
     <PrivateLayout>
@@ -40,8 +34,8 @@ const CollectionPage: React.FC = () => {
             <CollectionContext.Provider value={{ types, dispatch }}>
               <SubjectBar collapsed={collapsed} onCollapsed={onCollapsed} />
               <Content style={{ margin: "0 24px", minHeight: "640px" }}>
-                <CollectionBar bp={bp[0]} onCollapsed={onCollapsed} />
-                <SubjectGrid bp={bp[0]} />
+                <CollectionBar onCollapsed={onCollapsed} />
+                <SubjectGrid />
               </Content>
             </CollectionContext.Provider>
           </Layout>

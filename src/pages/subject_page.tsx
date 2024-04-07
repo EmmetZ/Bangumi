@@ -4,14 +4,16 @@ import SubjectNavBar from '../components/subject_navbar';
 import { useSubject } from '../hooks/useSubject';
 import { Subject } from '../types';
 import { useEffect } from 'react';
+import ErrorModal from '../components/error_modal';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 const SubjectPage = () => {
   const { id } = useParams();
   const { data: subject, isLoading, error } = useSubject(id!);
+  useEffect(() => window.scrollTo({ top: 0 }));
 
   if (isLoading) return null;
-  if (error || !subject) throw Error(error);
+  if (error || !subject) return <ErrorModal error={error} />;
   // console.log(subject);
   return (
     <Layout

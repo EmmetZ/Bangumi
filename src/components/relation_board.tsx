@@ -2,7 +2,9 @@ import { Flex, Space, Typography } from 'antd';
 import { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { UseSubjectRelation } from '../hooks/useSubject';
+import { sortData } from '../services/utils';
 import { Subject } from '../types';
+import ErrorModal from './error_modal';
 
 const { Text, Title } = Typography;
 
@@ -16,10 +18,6 @@ interface ItemProps {
   item: Subject;
 }
 
-interface SortedData {
-  [key: string]: Subject[];
-}
-
 const cropText = (text: string, maxLen = 15) => {
   if (text.length > maxLen) {
     return text.slice(0, maxLen) + '...';
@@ -30,15 +28,9 @@ const cropText = (text: string, maxLen = 15) => {
 const Relation = ({ subjectId }: Props) => {
   const { data, isLoading, error } = UseSubjectRelation(subjectId);
   if (isLoading) return null;
-  if (error || !data) throw Error(error);
+  if (error || !data) return <ErrorModal error={error} />
   // console.log(data);
-  let sortedData: SortedData = {};
-  data.forEach((item) => {
-    if (!sortedData[item.relation]) {
-      sortedData[item.relation] = [];
-    }
-    sortedData[item.relation].push(item);
-  });
+  const sortedData = sortData(data, 'relation')
   return (
     <>
       <Title level={3} className='board-title'>

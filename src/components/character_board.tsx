@@ -2,6 +2,7 @@ import { Col, Row, Typography } from 'antd';
 import Button from 'antd/es/button';
 import { useSubjectCharater } from '../hooks/useSubject';
 import CharacterCard from './character_card';
+import ErrorModal from './error_modal';
 
 interface Props {
   subjectId: number;
@@ -10,7 +11,7 @@ interface Props {
 const CharacterBoard = ({ subjectId }: Props) => {
   const { data, isLoading, error } = useSubjectCharater(subjectId);
   if (isLoading) return null;
-  if (error || !data) throw Error(error);
+  if (error || !data) return <ErrorModal error={error} />
   // console.log(data);
   if (data.length === 0) return null;
   return (

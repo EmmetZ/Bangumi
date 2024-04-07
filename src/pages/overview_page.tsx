@@ -12,6 +12,7 @@ import Relation from '../components/relation_board';
 
 const OverviewPage = () => {
   const subject = useSubjectContext();
+  const phrase = transSummary(subject.summary);
   return (
     <Layout style={{ marginTop: '15px' }}>
       <Content
@@ -37,9 +38,15 @@ const OverviewPage = () => {
           <Col span={19}>
             <Row gutter={[16, 0]}>
               <Col span={17}>
-                <Paragraph>{transSummary(subject.summary)}</Paragraph>
+                <Paragraph>
+                  <>
+                    {typeof phrase === 'string'
+                      ? phrase
+                      : phrase.map((p, i) => [p, <br key={i} />])}
+                  </>
+                </Paragraph>
                 {/* <EpManager /> */}
-                { subject.tags.length > 0 && <TagList tags={subject.tags} /> }
+                {subject.tags.length > 0 && <TagList tags={subject.tags} />}
               </Col>
               <Col span={7}>
                 <RatingCard rating={subject.rating} />

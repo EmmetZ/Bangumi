@@ -1,7 +1,6 @@
 import { Avatar, Flex, Skeleton, Typography } from 'antd';
 import { useContext } from 'react';
 import UserContext from '../contexts/user';
-import useUser from '../hooks/useUser';
 
 const UserProfile = () => {
   const { user } = useContext(UserContext);

@@ -4,15 +4,16 @@ import { CollectionType } from "../types";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import CollectionContext from "../contexts/collection";
 
+const { useBreakpoint } = Grid;
 
 interface Props {
-  bp: string;
   onCollapsed: () => void;
 }
 
-const CollectionBar = ({ bp, onCollapsed }: Props) => {
+const CollectionBar = ({ onCollapsed }: Props) => {
   const { types, dispatch } = useContext(CollectionContext);
   const value = [1, 2, 3, 4, 5];
+  const lg = useBreakpoint().lg
 
   let labels: string[];
   if (types.subject_type === 4) {
@@ -23,7 +24,7 @@ const CollectionBar = ({ bp, onCollapsed }: Props) => {
     labels = ["想看", "看过", "在看", "搁置", "抛弃"];
   }
 
-  if (bp === 'xs' || bp === 'sm' || bp === 'md') 
+  if (!lg) 
     return (
       <Flex gap='small'>
         <Button 

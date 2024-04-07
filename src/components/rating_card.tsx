@@ -3,7 +3,6 @@ import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import '../styles/tooltip.css';
 import { Rating } from '../types';
 import { Grid } from 'antd';
-import { gray } from 'd3-color';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;

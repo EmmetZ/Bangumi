@@ -1,9 +1,12 @@
-import { Col, Empty, Pagination, Row, Spin } from "antd";
-import { useContext, useState } from "react";
-import useCollection from "../hooks/useCollection";
-import SubjectCard from "./subject_card";
-import CollectionContext from "../contexts/collection";
-import UserContext from "../contexts/user";
+import { Col, Empty, Grid, Pagination, Row, Spin } from 'antd';
+import { useContext, useEffect, useState } from 'react';
+import useCollection from '../hooks/useCollection';
+import SubjectCard from './subject_card';
+import CollectionContext from '../contexts/collection';
+import UserContext from '../contexts/user';
+import ErrorModal from './error_modal';
+
+const { useBreakpoint } = Grid
 
 const colNumMap: Record<PropertyKey, number> = {
   xxl: 6,
@@ -15,39 +18,54 @@ const colNumMap: Record<PropertyKey, number> = {
 };
 const rowNum = 6;
 
-const SubjectGrid = ({ bp }: { bp: string }) => {
+const SubjectGrid = () => {
   const { types } = useContext(CollectionContext);
   const { user } = useContext(UserContext);
 
-  const colNum = colNumMap[bp];
-  const pageSize = rowNum * colNum;
-  const [limit, setLimit] = useState(pageSize);
+  const screens = useBreakpoint();
+  const bp = Object.entries(screens)
+    .filter((screen) => !!screen[1])
+    .pop();
+
+  const colNum = colNumMap[bp?.[0] || 4];
+  console.log(colNum)
+  const [pageSize, setPageSize] = useState(rowNum * colNum);
   const [offset, setOffset] = useState(0);
 
   const { data, isLoading, error } = useCollection(user!.id, {
     ...types,
-    limit,
+    limit: pageSize,
     offset,
   });
 
-  if (isLoading) return <Spin style={{ margin: "20px" }} />;
-  if (error || !data) throw error;
+  useEffect(() => {
+    if (colNum * rowNum !== pageSize) {
+      setPageSize(colNum * rowNum)
+      console.log(colNum * rowNum)
+    }
+  }, [pageSize, bp])
+
+  if (isLoading) return <Spin style={{ margin: '20px' }} />;
+  if (error || !data)
+    return (
+      <ErrorModal error={error?.message || 'fetch collection data failed'} />
+    );
 
   const { data: subjects, total } = data;
   if (total === 0)
     return (
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
-        description="还没有收藏哦 ..."
+        description='还没有收藏哦 ...'
         style={{
-          padding: "100px",
+          padding: '100px',
         }}
       />
     );
 
   return (
     <>
-      <Row gutter={[16, 16]} style={{ margin: "24px 10px" }}>
+      <Row gutter={[16, 16]} style={{ margin: '24px 10px' }}>
         {subjects.map(({ subject: { id, images, name, name_cn, date } }) => (
           <Col key={id} span={24 / colNum}>
             <SubjectCard
@@ -65,14 +83,13 @@ const SubjectGrid = ({ bp }: { bp: string }) => {
         defaultCurrent={1}
         current={offset / pageSize + 1}
         onChange={(page) => {
-          setLimit(pageSize);
           setOffset((page - 1) * pageSize);
           window.scrollTo({ top: 0 });
         }}
         showQuickJumper
         showSizeChanger={false}
         hideOnSinglePage
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+        style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}
       />
     </>
   );
