@@ -1,9 +1,9 @@
 span.tag {
-  background-color: #fff;
+  background-color: #fefefe;
 }
 
 span.tag:hover {
-  background-color: #1c9be5;
+  background-color: #369cf8;
 }
 
 span.tag:hover .tagname {

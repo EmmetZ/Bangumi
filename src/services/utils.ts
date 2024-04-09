@@ -20,10 +20,12 @@ export const getAvatarUrl = (url: string) => {
 
 export const sortData = <T extends Record<string, any>>(
   data: T[],
-  filter: string
+  filter: string,
+  value?: any[]
 ): SortedData<T> => {
   let sortedData: SortedData<T> = {};
   data.forEach((item) => {
+    if (value && !value.includes(item[filter])) return;
     if (!sortedData[item[filter]]) {
       sortedData[item[filter]] = [];
     }

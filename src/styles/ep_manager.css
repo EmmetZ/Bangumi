@@ -1,0 +1,48 @@
+div.ep-item-card {
+  margin: 3px;
+  padding: 3px;
+  border: 1px solid #d9d9d9;
+  border-radius: 0;
+}
+
+div.ep-item-card:hover {
+  background-color: #ffe58f
+}
+
+div.ep-manager-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: inherit;
+}
+
+.ep-popover-title {
+  margin: 0px;
+  font-size: 14px !important;
+  width: 100%;
+  background-color: #f09199;
+  overflow: hidden;
+  padding: 5px 12px;
+  min-width: 100px;
+  color: white !important;
+}
+
+.ep-popover-button {
+  border-radius: 5px !important;
+  color: #0084b4;
+  padding: 5px 10px;
+}
+
+.ep-popover-button:hover {
+  background-color: #f09199 !important;
+  color: white !important;
+}
+
+.ep-popover-button-container {
+  background-color: #f0f0f0;
+  margin: 0 8px;
+  border-radius: 5px;
+}
+
+.ep-popover-text {
+  font-size: 12px;
+}

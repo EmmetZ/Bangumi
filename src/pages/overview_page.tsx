@@ -5,10 +5,10 @@ import EpManager from '../components/ep_manager';
 import RatingCard from '../components/rating_card';
 import TagList from '../components/tag_list';
 import { transSummary } from '../services/utils';
-import { useSubjectContext } from './subject_page';
 import InfoColumn from '../components/info_column';
 import CharacterBoard from '../components/character_board';
 import Relation from '../components/relation_board';
+import { useSubjectContext } from '../contexts/subject';
 
 const OverviewPage = () => {
   const subject = useSubjectContext();
@@ -45,7 +45,12 @@ const OverviewPage = () => {
                       : phrase.map((p, i) => [p, <br key={i} />])}
                   </>
                 </Paragraph>
-                {/* <EpManager /> */}
+                {subject.type === 2 && (
+                  <>
+                    <EpManager subjectId={subject.id} />
+                    <Divider style={{ margin: '10px 0' }} />
+                  </>
+                )}
                 {subject.tags.length > 0 && <TagList tags={subject.tags} />}
               </Col>
               <Col span={7}>
