@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { rejects } from 'assert';
 import {
   UserCollectionQuery,
-  FetchResponse,
+  Response,
   Collection,
 } from '../hooks/types';
 import { Episode, User } from '../types';
@@ -55,7 +55,7 @@ function retryableRequest<T>(
 class ApiClient {
   getCollections(userId: number, query: UserCollectionQuery) {
     return apiClient
-      .get<FetchResponse<Collection>>(`/v0/users/${userId}/collections`, {
+      .get<Response<Collection>>(`/v0/users/${userId}/collections`, {
         params: { ...query },
       })
       .then((res) => res.data);
@@ -74,7 +74,7 @@ class ApiClient {
 
   getEpisodes(subjectId: number, config: AxiosRequestConfig) {
     return apiClient
-      .get<FetchResponse<Episode>>('v0/episodes', {
+      .get<Response<Episode>>('v0/episodes', {
         params: {
           subject_id: subjectId,
           ...config,

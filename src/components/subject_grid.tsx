@@ -1,10 +1,10 @@
 import { Col, Empty, Grid, Pagination, Row, Spin } from 'antd';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCollectionContext } from '../contexts/collection';
+import { useUserContext } from '../contexts/user';
 import useCollection from '../hooks/useCollection';
-import SubjectCard from './subject_card';
-import CollectionContext from '../contexts/collection';
-import UserContext from '../contexts/user';
 import ErrorModal from './error_modal';
+import SubjectCard from './subject_card';
 
 const { useBreakpoint } = Grid
 
@@ -19,16 +19,15 @@ const colNumMap: Record<PropertyKey, number> = {
 const rowNum = 6;
 
 const SubjectGrid = () => {
-  const { types } = useContext(CollectionContext);
-  const { user } = useContext(UserContext);
+  const { types } = useCollectionContext();
+  const { user } = useUserContext();
 
   const screens = useBreakpoint();
   const bp = Object.entries(screens)
     .filter((screen) => !!screen[1])
     .pop();
 
-  const colNum = colNumMap[bp?.[0] || 4];
-  console.log(colNum)
+  const colNum = colNumMap[bp?.[0] || 'lg'];
   const [pageSize, setPageSize] = useState(rowNum * colNum);
   const [offset, setOffset] = useState(0);
 
@@ -39,10 +38,8 @@ const SubjectGrid = () => {
   });
 
   useEffect(() => {
-    if (colNum * rowNum !== pageSize) {
+    if (colNum * rowNum !== pageSize) 
       setPageSize(colNum * rowNum)
-      console.log(colNum * rowNum)
-    }
   }, [pageSize, bp])
 
   if (isLoading) return <Spin style={{ margin: '20px' }} />;

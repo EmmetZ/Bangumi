@@ -1,8 +1,8 @@
 import { ConfigProvider, Layout, ThemeConfig } from 'antd';
-import { ReactNode, useContext, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
-import UserContext from '../contexts/user';
+import { useUserContext } from '../contexts/user';
 
 const { Header, Footer, Content } = Layout;
 
@@ -82,7 +82,7 @@ const FooterLayout = () => {
 };
 
 export const PrivateLayout = ({ children }: LayoutProps) => {
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
   const navigate = useNavigate();
 
   useEffect(() => {

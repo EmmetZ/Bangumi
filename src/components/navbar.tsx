@@ -1,9 +1,8 @@
-import { Avatar, Button, Flex, Image, Popover, Space } from 'antd';
-import '../styles/logo.css';
-import { useContext } from 'react';
-import UserContext from '../contexts/user';
-import { getAvatarUrl } from '../services/utils';
+import { Avatar, Button, Image, Popover, Space } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useUserContext } from '../contexts/user';
+import { getAvatarUrl } from '../services/utils';
+import '../styles/logo.css';
 
 const { Compact } = Space;
 
@@ -11,7 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const loc = useLocation();
   const logoStyle = Math.ceil(Math.random() * 6);
-  const { user, dispatch } = useContext(UserContext);
+  const { user, dispatch } = useUserContext();
   return (
     <Compact
       style={{ padding: 0, display: 'flex', justifyContent: 'space-between' }}

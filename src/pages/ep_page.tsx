@@ -10,10 +10,10 @@ import {
 } from 'antd';
 import { useParams } from 'react-router-dom';
 import ErrorModal from '../components/error_modal';
-import useEpisodes from '../hooks/useEpisode';
+import { useEpisodeContext } from '../contexts/episode';
+import { getSubjectEp, useHelper } from '../hooks/get_data';
 import { sortData } from '../services/utils';
 import { EpType, Episode } from '../types';
-import { useState } from 'react';
 
 const EpTypeMap: Record<EpType, string> = {
   0: '本篇',
@@ -39,7 +39,12 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 const EpisodePage = () => {
   const { id } = useParams();
-  const { data: eps, isLoading, error } = useEpisodes(parseInt(id!));
+  const {
+    states: { error, isLoading },
+    dispatches,
+  } = useHelper();
+  const { episodes: eps, setEpisode } = useEpisodeContext();
+  getSubjectEp(!eps, parseInt(id!), { ...dispatches, setData: setEpisode })
   if (isLoading) return null;
   if (error || !eps) return <ErrorModal error={error} />;
   const sortedEps = sortData(eps, 'type');

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api_client";
-import { UserCollectionQuery, FetchResponse, Collection } from "./types";
+import { UserCollectionQuery, Response, Collection } from "./types";
 
 const useCollection = (userId: number, query: UserCollectionQuery) => {
   const client = new ApiClient();
@@ -25,7 +25,7 @@ const useCollection = (userId: number, query: UserCollectionQuery) => {
   // }, [types]);
   // return { subjects, isLoading };
 
-  return useQuery<FetchResponse<Collection>, Error>({
+  return useQuery<Response<Collection>, Error>({
     queryKey: [userId, 'subjects', query],
     queryFn: () => client.getCollections(userId, query), 
     staleTime: 60 * 60 * 1000, // 1 hour

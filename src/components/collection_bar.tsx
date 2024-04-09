@@ -1,8 +1,7 @@
 import { Button, Flex, Grid, Select } from "antd";
-import { useContext } from "react";
-import { CollectionType } from "../types";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
-import CollectionContext from "../contexts/collection";
+import { useCollectionContext } from "../contexts/collection";
+import { CollectionType } from "../types";
 
 const { useBreakpoint } = Grid;
 
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const CollectionBar = ({ onCollapsed }: Props) => {
-  const { types, dispatch } = useContext(CollectionContext);
+  const { types, dispatch } = useCollectionContext();
   const value = [1, 2, 3, 4, 5];
   const lg = useBreakpoint().lg
 

@@ -1,9 +1,8 @@
-import { Button, Divider, Grid, Layout, Menu, theme } from "antd";
+import { Button, Grid, Layout, Menu, theme } from "antd";
 import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
+import { AiOutlineMenuFold } from "react-icons/ai";
+import { useCollectionContext } from "../contexts/collection";
 import { SubjectType } from "../types";
-import { useContext } from "react";
-import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
-import CollectionContext from "../contexts/collection";
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -13,7 +12,7 @@ interface Props {
   onCollapsed: () => void;
 }
 const SubjectBar = ({ collapsed, onCollapsed }: Props) => {
-  const { dispatch } = useContext(CollectionContext);
+  const { dispatch } = useCollectionContext();
 
   const { lg } = useBreakpoint();
   const subjectValue: SubjectType[] = [2, 1, 3, 4, 6];

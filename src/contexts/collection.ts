@@ -1,4 +1,4 @@
-import { Dispatch, createContext } from "react";
+import { Dispatch, createContext, useContext } from "react";
 import { CollectionType, SubjectType } from "../types";
 
 interface CollectionState {
@@ -30,5 +30,7 @@ export const collectionReducer = (state: CollectionState, action: CollectionActi
 const CollectionContext = createContext<TCollectionContext>(
   {} as TCollectionContext
 );
+
+export const useCollectionContext = () => useContext(CollectionContext);
 
 export default CollectionContext;

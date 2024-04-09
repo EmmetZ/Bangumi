@@ -1,18 +1,28 @@
 import { Col, Row, Typography } from 'antd';
 import Button from 'antd/es/button';
-import { useSubjectCharater } from '../hooks/useSubject';
+import { useCharacterContext } from '../contexts/character';
+import { getSubjectCharacter, useHelper } from '../hooks/get_data';
 import CharacterCard from './character_card';
 import ErrorModal from './error_modal';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   subjectId: number;
 }
 
 const CharacterBoard = ({ subjectId }: Props) => {
-  const { data, isLoading, error } = useSubjectCharater(subjectId);
+  const { characters: data, setCharacter } = useCharacterContext();
+  const {
+    states: { error, isLoading },
+    dispatches,
+  } = useHelper();
+  const navigate = useNavigate();
+  getSubjectCharacter(!data, subjectId, {
+    ...dispatches,
+    setData: setCharacter,
+  });
   if (isLoading) return null;
-  if (error || !data) return <ErrorModal error={error} />
-  // console.log(data);
+  if (error || !data) return <ErrorModal error={error} />;
   if (data.length === 0) return null;
   return (
     <>
@@ -38,7 +48,11 @@ const CharacterBoard = ({ subjectId }: Props) => {
           )}
       </Row>
       <div>
-        <Button className='more-character' type='link'>
+        <Button
+          className='more-character'
+          type='link'
+          onClick={() => navigate(`/subject/${subjectId}/characters`)}
+        >
           {'查看更多>>'}
         </Button>
       </div>

@@ -1,4 +1,4 @@
-import { Dispatch, createContext } from 'react';
+import { Dispatch, createContext, useContext } from 'react';
 import { User } from '../types';
 
 type UserState = User | undefined;
@@ -24,5 +24,7 @@ export const userReducer = (state: UserState, action: UserAction): UserState => 
 };
 
 const UserContext = createContext<TUserContext>({} as TUserContext);
+
+export const useUserContext = () => useContext(UserContext);
 
 export default UserContext;

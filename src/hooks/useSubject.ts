@@ -13,9 +13,6 @@ export const useSubject = (subjectId: string) => {
 export const useSubjectImage = (subjectId: number, imgType: ImgType) =>
   _useSubject<string>(`/${subjectId}/image`, { params: { type: imgType }});
 
-export const useSubjectCharater = (subjectId: number) => 
-  _useSubject<Character[]>(`/${subjectId}/characters`);
-
 export const UseSubjectRelation = (subjectId: number) =>
   _useSubject<Subject[]>(`/${subjectId}/subjects`);
 
