@@ -1,10 +1,11 @@
 import { Col, Row, Typography } from 'antd';
 import Button from 'antd/es/button';
+import { useNavigate } from 'react-router-dom';
 import { useCharacterContext } from '../contexts/character';
-import { getSubjectCharacter, useHelper } from '../hooks/get_data';
+import useCharacter from '../hooks/useCharacter';
+import useHelper from '../hooks/useHelper';
 import CharacterCard from './character_card';
 import ErrorModal from './error_modal';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   subjectId: number;
@@ -17,7 +18,7 @@ const CharacterBoard = ({ subjectId }: Props) => {
     dispatches,
   } = useHelper();
   const navigate = useNavigate();
-  getSubjectCharacter(!data, subjectId, {
+  useCharacter(!data, subjectId, {
     ...dispatches,
     setData: setCharacter,
   });
@@ -42,7 +43,7 @@ const CharacterBoard = ({ subjectId }: Props) => {
                   key={character.id}
                   style={{ margin: 0, padding: 6 }}
                 >
-                  <CharacterCard character={character} />
+                  <CharacterCard character={character} size='small' />
                 </Col>
               )
           )}

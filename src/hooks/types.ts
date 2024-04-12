@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { CollectionType, Subject, SubjectType } from "../types";
 
 export type ImgType = "small" | "grid" | "large" | "medium" | "common";
@@ -23,3 +24,9 @@ export interface Collection {
   updated_at: string;
   subject: Subject;
 }
+
+export type Dispatches<T> = {
+  setData: Dispatch<T>;
+  setError: Dispatch<string>;
+  setLoading: Dispatch<boolean>;
+};

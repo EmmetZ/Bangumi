@@ -11,9 +11,11 @@ import {
 import { useParams } from 'react-router-dom';
 import ErrorModal from '../components/error_modal';
 import { useEpisodeContext } from '../contexts/episode';
-import { getSubjectEp, useHelper } from '../hooks/get_data';
+import useEpisode from '../hooks/useEpisode';
+import useHelper from '../hooks/useHelper';
 import { sortData } from '../services/utils';
 import { EpType, Episode } from '../types';
+import { SubLayout } from './layout';
 
 const EpTypeMap: Record<EpType, string> = {
   0: '本篇',
@@ -37,6 +39,7 @@ const prefixMap: Record<EpType, string> = {
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
+
 const EpisodePage = () => {
   const { id } = useParams();
   const {
@@ -44,38 +47,30 @@ const EpisodePage = () => {
     dispatches,
   } = useHelper();
   const { episodes: eps, setEpisode } = useEpisodeContext();
-  getSubjectEp(!eps, parseInt(id!), { ...dispatches, setData: setEpisode })
+  useEpisode(!eps, parseInt(id!), { ...dispatches, setData: setEpisode });
   if (isLoading) return null;
   if (error || !eps) return <ErrorModal error={error} />;
   const sortedEps = sortData(eps, 'type');
   // console.log(sortedEps);
 
   return (
-    <Layout style={{ marginTop: '15px' }}>
-      <Content
-        style={{
-          maxWidth: '1024px',
-          minWidth: '100vh',
-          margin: '0 auto',
-        }}
-      >
-        {Object.keys(sortedEps).map((key) => {
-          return (
-            <div key={key}>
-              <Title level={5} style={{ margin: '10px 0' }}>
-                {EpTypeMap[parseInt(key) as EpType]}
-              </Title>
-              <Divider style={{ padding: 0, margin: 0 }} />
-              <Flex vertical>
-                {sortedEps[key].map((ep, index) => (
-                  <EpListItem key={ep.id} ep={ep} index={index + 1} />
-                ))}
-              </Flex>
-            </div>
-          );
-        })}
-      </Content>
-    </Layout>
+    <SubLayout style={{ margin: '0 10px'}}>
+      {Object.keys(sortedEps).map((key) => {
+        return (
+          <div key={key}>
+            <Title level={5} style={{ margin: '10px 0' }}>
+              {EpTypeMap[parseInt(key) as EpType]}
+            </Title>
+            <Divider style={{ padding: 0, margin: 0 }} />
+            <Flex vertical>
+              {sortedEps[key].map((ep, index) => (
+                <EpListItem key={ep.id} ep={ep} index={index + 1} />
+              ))}
+            </Flex>
+          </div>
+        );
+      })}
+    </SubLayout>
   );
 };
 
