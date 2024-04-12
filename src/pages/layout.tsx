@@ -1,5 +1,5 @@
 import { ConfigProvider, Layout, ThemeConfig } from 'antd';
-import { ReactNode, useEffect } from 'react';
+import { CSSProperties, ReactNode, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import { useUserContext } from '../contexts/user';
@@ -8,6 +8,11 @@ const { Header, Footer, Content } = Layout;
 
 interface LayoutProps {
   children: ReactNode;
+}
+
+interface SubLayoutProps {
+  children: ReactNode;
+  style?: CSSProperties;
 }
 
 export const DefaultConfigProvider = ({ children }: LayoutProps) => {
@@ -90,4 +95,20 @@ export const PrivateLayout = ({ children }: LayoutProps) => {
   }, [user]);
 
   return user ? <div>{children}</div> : <div>please login...</div>;
+};
+
+export const SubLayout = ({ children, style = {} }: SubLayoutProps) => {
+  return (
+    <Layout style={style}>
+      <Content
+        style={{
+          width: '100%',
+          maxWidth: '960px',
+          margin: '0 auto',
+        }}
+      >
+        {children}
+      </Content>
+    </Layout>
+  );
 };

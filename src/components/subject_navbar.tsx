@@ -4,7 +4,7 @@ import {
   Space,
   Typography
 } from "antd";
-import { CSSProperties, FC, useState } from "react";
+import { CSSProperties, FC, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface Props {
@@ -22,15 +22,18 @@ const itemStyle: { style: CSSProperties } = {
 
 const SubjectNavBar: FC<Props> = ({ platform, name, type }) => {
   const loc = useLocation();
-  let curr: string;
-  if (loc.pathname.endsWith("ep")) {
-    curr = "ep";
-  } else {
-    curr = "overview";
-  }
   const { id } = useParams();
-  const [current, setCurrent] = useState(curr);
+  const [current, setCurrent] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loc.pathname.endsWith("ep")) 
+      setCurrent("ep");
+    else if (loc.pathname.endsWith("characters")) 
+      setCurrent("characters");
+    else setCurrent("overview");
+  }, [loc])
+
   let menuItems: MenuProps["items"] = [
     {
       label: "概览",
@@ -45,6 +48,7 @@ const SubjectNavBar: FC<Props> = ({ platform, name, type }) => {
     {
       label: "角色",
       key: "characters",
+      onClick: () => navigate(`/subject/${id}/characters`)
     },
     {
       label: "制作人员",

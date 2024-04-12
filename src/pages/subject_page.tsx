@@ -8,6 +8,7 @@ import { useSubject } from '../hooks/useSubject';
 import { Character, Episode, Subject } from '../types';
 import EpisodeContext, { TEpisodeContext } from '../contexts/episode';
 import CharacterContext, { TCharacterContext } from '../contexts/character';
+import { SubLayout } from './layout';
 
 const { Header, Content } = Layout;
 
@@ -32,7 +33,9 @@ const ContextProvider = ({ value, children }: ContextProviderProps) => {
 const SubjectPage = () => {
   const { id } = useParams();
   const { data: subject, isLoading, error } = useSubject(id!);
-  const [characters, setCharacter] = useState<Character[] | undefined>(undefined);
+  const [characters, setCharacter] = useState<Character[] | undefined>(
+    undefined
+  );
   const [episodes, setEpisode] = useState<Episode[] | undefined>(undefined);
   useEffect(() => window.scrollTo({ top: 0 }));
 
@@ -40,15 +43,16 @@ const SubjectPage = () => {
   if (error || !subject) return <ErrorModal error={error} />;
   // console.log(subject);
   return (
-    <Layout
-      style={{
-        // maxWidth: "1024px",
-        width: '80%',
-        left: '10%',
-        margin: '0 auto',
-      }}
-    >
-      <Header style={{ height: '100%' }}>
+    <SubLayout>
+      <Header
+        style={{
+          height: '100%',
+          padding: '0 5px',
+          maxWidth: '960px',
+          minWidth: '75%',
+          margin: '0 auto',
+        }}
+      >
         <SubjectNavBar
           name={subject.name}
           platform={subject.platform}
@@ -62,7 +66,7 @@ const SubjectPage = () => {
           <Outlet />
         </ContextProvider>
       </Content>
-    </Layout>
+    </SubLayout>
   );
 };
 
