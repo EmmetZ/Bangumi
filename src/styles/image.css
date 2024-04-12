@@ -11,15 +11,6 @@ img.overview-main-cover {
   box-shadow: 0 1px 5px #AAA
 }
 
-span.character-avatar {
-  background-size: cover;
-  border-radius: 8px;
-  aspect-ratio: 1;
-  size: cover;
-  width: 48px;
-  height: 48px;
-}
-
 .border-shadow:hover {
   box-shadow: inset #0084B4 0px 0px 4px 0px;
   transition: border linear 0.2s, box-shadow linear 0.2s;
@@ -34,13 +25,4 @@ img.collection-card-cover {
   border-radius: "10px";
   object-fit: cover;
   aspect-ratio: 3 / 4
-}
-
-span.relation-cover {
-  width: 75px;
-  height: 75px;
-  border-radius: 10px;
-  background-size: cover;
-  aspect-ratio: 1;
-  size: cover;
 }

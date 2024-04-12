@@ -5,6 +5,7 @@ import { UseSubjectRelation } from '../hooks/useSubject';
 import { sortData } from '../services/utils';
 import { Subject } from '../types';
 import ErrorModal from './error_modal';
+import CustomImg from './custom_img';
 
 const { Text, Title } = Typography;
 
@@ -28,9 +29,9 @@ const cropText = (text: string, maxLen = 15) => {
 const Relation = ({ subjectId }: Props) => {
   const { data, isLoading, error } = UseSubjectRelation(subjectId);
   if (isLoading) return null;
-  if (error || !data) return <ErrorModal error={error} />
+  if (error || !data) return <ErrorModal error={error} />;
   // console.log(data);
-  const sortedData = sortData(data, 'relation')
+  const sortedData = sortData(data, 'relation');
   return (
     <>
       <Title level={3} className='board-title'>
@@ -81,16 +82,12 @@ const Item = ({ hasRelation, item, hasDivider }: ItemProps) => {
         <Text style={textStyle} />
       )}
       <Link to={`/subject/${item.id}`}>
-        <span
-          className='relation-cover border-shadow'
-          draggable='false'
-          style={{
-            backgroundImage: `url(${
-              item.images.large || 'https://bgm.tv/img/no_icon_subject.png'
-            })`,
-            display: 'inline-block',
-          }}
-          // onClick={() => navigate(`/subject/${item.id}`)}
+        <CustomImg
+          imgUrl={`${
+            item.images.large || 'https://bgm.tv/img/no_icon_subject.png'
+          }`}
+          size={75}
+          borderRadius={10}
         />
         <Text className='relation-link'>{cropText(item.name)}</Text>
       </Link>
