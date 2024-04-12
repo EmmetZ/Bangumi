@@ -1,9 +1,8 @@
-import { Avatar, Card, Divider, Flex, Tag, Typography } from 'antd';
-import { Actor, Character } from '../types';
-import { getAvatarUrl } from '../services/utils';
-import '../styles/character_card.css';
-import CustomImg from './custom_img';
+import { Card, Divider, Flex, Tag, Typography } from 'antd';
 import Compact from 'antd/es/space/Compact';
+import { getAvatarUrl } from '../services/utils';
+import { Actor, Character } from '../types';
+import CustomImg from './custom_img';
 
 const { Text } = Typography;
 

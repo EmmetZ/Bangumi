@@ -1,12 +1,11 @@
+import { Space } from 'antd';
+import { useParams } from 'react-router-dom';
+import CharacterCard from '../components/character_card';
+import ErrorModal from '../components/error_modal';
 import { useCharacterContext } from '../contexts/character';
-import { sortData } from '../services/utils';
 import useCharacter from '../hooks/useCharacter';
 import useHelper from '../hooks/useHelper';
-import ErrorModal from '../components/error_modal';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { Space } from 'antd';
-import CharacterCard from '../components/character_card';
+import { sortData } from '../services/utils';
 import { SubLayout } from './layout';
 
 const sortedKeys = ['主角', '配角', '客串'];
