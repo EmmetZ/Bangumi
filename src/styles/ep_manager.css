@@ -1,12 +1,17 @@
-div.ep-item-card {
+div.ep-item {
   margin: 3px;
   padding: 3px;
   border: 1px solid #d9d9d9;
   border-radius: 0;
 }
 
-div.ep-item-card:hover {
-  background-color: #ffe58f
+div.ep-item.card:hover {
+  background-color: #ffe58f;
+}
+
+div.ep-item.divider {
+  border-left: 3px solid #aaa;
+  color: #aaa;
 }
 
 div.ep-manager-container {
@@ -45,4 +50,13 @@ div.ep-manager-container {
 
 .ep-popover-text {
   font-size: 12px;
+}
+
+button.more-eps {
+  font-size: 14px;
+  color: #888;
+}
+
+button.more-eps:hover {
+  color: #0084B4;
 }

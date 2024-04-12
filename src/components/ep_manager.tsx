@@ -1,23 +1,15 @@
-import {
-  Button,
-  Card,
-  Divider,
-  Popover,
-  Space,
-  Typography,
-  message,
-} from 'antd';
-import { BsChatFill } from 'react-icons/bs';
+import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { Fragment } from 'react/jsx-runtime';
 import { useEpisodeContext } from '../contexts/episode';
-import { getSubjectEp, useHelper } from '../hooks/get_data';
+import useEpisode from '../hooks/useEpisode';
+import useHelper from '../hooks/useHelper';
 import { sortData } from '../services/utils';
 import '../styles/ep_manager.css';
-import { Episode } from '../types';
+import EMListItem, { EMListDivider } from './ep_manager_contents';
 import ErrorModal from './error_modal';
 
-const { Compact } = Space;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 interface Props {
   subjectId: number;
@@ -30,7 +22,7 @@ const EpManager = ({ subjectId }: Props) => {
     dispatches,
   } = useHelper();
   const navigate = useNavigate();
-  getSubjectEp(!data, subjectId, {
+  useEpisode(!data, subjectId, {
     ...dispatches,
     setData: setEpisode,
   });
@@ -40,91 +32,32 @@ const EpManager = ({ subjectId }: Props) => {
   // console.log(sortedEp);
   return (
     <>
-      <Title level={4} style={{ margin: '10px 0 5px 0', padding: 0 }}>
+      <Title level={4} style={{ margin: 0, padding: 0 }}>
         进度管理
+        <Button
+          type='link'
+          className='more-eps'
+          onClick={() => navigate(`/subject/${subjectId}/ep`)}
+        >
+          {'更多>>'}
+        </Button>
       </Title>
       <div className='ep-manager-container'>
         {Object.keys(sortedEp).map((key) =>
-          sortedEp[key].map((ep) => {
-            return (
-              <Popover
-                content={<PopoverContent ep={ep} />}
-                overlayInnerStyle={{
-                  padding: '0px',
-                }}
-                placement='topLeft'
-              >
-                <Card
-                  className='ep-item-card'
-                  styles={{
-                    body: {
-                      padding: '2px',
-                      display: 'block',
-                      lineHeight: '100%',
-                    },
-                  }}
-                >
-                  <span style={{ fontSize: 12, userSelect: 'none' }}>
-                    {ep.sort < 10 ? `0${ep.sort}` : ep.sort}
-                  </span>
-                </Card>
-              </Popover>
-            );
+          sortedEp[key].map((ep, index) => {
+            if (ep.type === 0 || index !== 0)
+              return <EMListItem ep={ep} key={ep.id} />;
+            else if (ep.type === 1 && index === 0)
+              return (
+                <Fragment key={ep.id}>
+                  <EMListDivider text='SP' />
+                  <EMListItem ep={ep} />
+                </Fragment>
+              );
           })
         )}
       </div>
     </>
-  );
-};
-
-interface PopoverContentProps {
-  ep: Episode;
-}
-
-const PopoverContent = ({ ep }: PopoverContentProps) => {
-  return (
-    <Compact
-      direction='vertical'
-      style={{ overflow: 'hidden', borderRadius: '5px' }}
-    >
-      <Title className='ep-popover-title' level={5}>
-        ep.{ep.sort} {ep.name}
-      </Title>
-      <Compact className='ep-popover-button-container'>
-        <PopoverButton text='看过' />
-        <PopoverButton text='看到' />
-        <PopoverButton text='想看' />
-        <PopoverButton text='抛弃' />
-      </Compact>
-      <Compact direction='vertical' style={{ padding: '5px 10px 10px 10px' }}>
-        {ep.name_cn && (
-          <Text className='ep-popover-text'>{`中文标题: ${ep.name_cn}`}</Text>
-        )}
-        {ep.airdate && (
-          <Text className='ep-popover-text'>{`首播: ${ep.airdate}`}</Text>
-        )}
-        {ep.duration && (
-          <Text className='ep-popover-text'>{`时长: ${ep.duration}`}</Text>
-        )}
-        <Divider style={{ padding: 0, margin: '5px' }} />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <BsChatFill size={14} style={{ marginRight: '4px' }} color='#ccc' />
-          <Text className='ep-popover-text'>讨论: +{ep.comment}</Text>
-        </div>
-      </Compact>
-    </Compact>
-  );
-};
-
-const PopoverButton = ({ text }: { text: string }) => {
-  return (
-    <Button
-      type='text'
-      className='ep-popover-button ep-popover-text'
-      onClick={() => message.info('实验性按钮，点了也没用~')}
-    >
-      {text}
-    </Button>
   );
 };
 
