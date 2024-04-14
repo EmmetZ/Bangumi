@@ -6,7 +6,7 @@ import {
   Response,
   Collection,
 } from '../hooks/types';
-import { Episode, User } from '../types';
+import { DetailedSubject, Episode, User } from '../types';
 
 const MAX_RETRY_TIMES = 3;
 const RETRY_DELAY = 1000;
@@ -72,6 +72,14 @@ class ApiClient {
       .then((res) => res.data);
   }
 
+  getDetailedSubject(subjectId: string, config: AxiosRequestConfig) {
+    return apiClient
+      .get<DetailedSubject>(`/subject/${subjectId}`, {
+        ...config,
+        params: { ...config.params, responseGroup: 'large' },
+      })
+      .then((res) => res.data);
+  }
   getEpisodes(subjectId: number, config: AxiosRequestConfig) {
     return apiClient
       .get<Response<Episode>>('v0/episodes', {

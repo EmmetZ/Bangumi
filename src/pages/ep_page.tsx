@@ -8,11 +8,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
-import { useParams } from 'react-router-dom';
-import ErrorModal from '../components/error_modal';
-import { useEpisodeContext } from '../contexts/episode';
-import useEpisode from '../hooks/useEpisode';
-import useHelper from '../hooks/useHelper';
+import { useSubjectsContext } from '../contexts/subject';
 import { sortData } from '../services/utils';
 import { EpType, Episode } from '../types';
 import { SubLayout } from './layout';
@@ -41,15 +37,8 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const EpisodePage = () => {
-  const { id } = useParams();
-  const {
-    states: { error, isLoading },
-    dispatches,
-  } = useHelper();
-  const { episodes: eps, setEpisode } = useEpisodeContext();
-  useEpisode(!eps, parseInt(id!), { ...dispatches, setData: setEpisode });
-  if (isLoading) return null;
-  if (error || !eps) return <ErrorModal error={error} />;
+  const { get } = useSubjectsContext();
+  const eps = get('eps');
   const sortedEps = sortData(eps, 'type');
   // console.log(sortedEps);
 
@@ -80,9 +69,7 @@ interface ItemProps {
 }
 
 const EpListItem = ({ ep, index }: ItemProps) => {
-  const date = new Date(ep.airdate);
-  const now = new Date();
-  const isFuture = date > now;
+  const isAir = ep.status !== "Air";
   return (
     <Card
       style={{
@@ -106,8 +93,8 @@ const EpListItem = ({ ep, index }: ItemProps) => {
         )}
       </Title>
       <Space size='small' style={{ marginTop: '2px' }}>
-        <Tooltip title={isFuture ? '未放送' : '已放送'}>
-          <Badge status={isFuture ? 'default' : 'processing'} />
+        <Tooltip title={isAir ? '未放送' : '已放送'}>
+          <Badge status={isAir ? 'default' : 'processing'} />
         </Tooltip>
         <Text type='secondary' style={{ fontSize: '12px' }}>
           {ep.duration && `时长: ${ep.duration} / `}

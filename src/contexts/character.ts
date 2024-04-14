@@ -1,9 +1,9 @@
 import { Dispatch, createContext, useContext } from "react";
-import { Character } from "../types";
+import { DSCharacter } from "../types";
 
 export interface TCharacterContext {
-  characters: Character[] | undefined;
-  setCharacter: Dispatch<Character[]>;
+  characters: DSCharacter[] | undefined;
+  setCharacter: Dispatch<DSCharacter[]>;
 }
 
 const CharacterContext = createContext<TCharacterContext>({} as TCharacterContext);

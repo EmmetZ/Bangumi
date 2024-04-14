@@ -1,3 +1,4 @@
+import { ICON_PLACEHOLDER } from "../constant";
 
 export interface SortedData<T> {
   [key: string]: T[];
@@ -15,12 +16,13 @@ export const transSummary = (data: string) => {
 };
 
 export const getAvatarUrl = (url: string) => {
+  if (!url) return ICON_PLACEHOLDER;
   return url.replace('crt/l', 'crt/g');
 };
 
 export const sortData = <T extends Record<string, any>>(
   data: T[],
-  filter: string,
+  filter: keyof T,
   value?: any[]
 ): SortedData<T> => {
   let sortedData: SortedData<T> = {};

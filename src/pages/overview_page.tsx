@@ -1,17 +1,17 @@
-import { Col, Divider, Image, Layout, Row } from 'antd';
-import { Content } from 'antd/es/layout/layout';
-import EpManager from '../components/ep_manager';
-import RatingCard from '../components/rating_card';
-import TagList from '../components/tag_list';
-import InfoColumn from '../components/info_column';
+import { Col, Divider, Image, Row } from 'antd';
 import CharacterBoard from '../components/character_board';
+import EpManager from '../components/ep_manager';
+import InfoColumn from '../components/info_column';
+import RatingCard from '../components/rating_card';
 import Relation from '../components/relation_board';
-import { useSubjectContext } from '../contexts/subject';
-import { SubLayout } from './layout';
 import Summary from '../components/summary';
+import TagList from '../components/tag_list';
+import { useSubjectsContext } from '../contexts/subject';
+import { SubLayout } from './layout';
 
 const OverviewPage = () => {
-  const subject = useSubjectContext();
+  const { subject, get } = useSubjectsContext();
+  // console.log(subject);
   return (
     <SubLayout>
       <Row gutter={[16, 0]}>
@@ -30,10 +30,10 @@ const OverviewPage = () => {
         <Col span={19}>
           <Row gutter={[16, 0]}>
             <Col span={17}>
-              <Summary text={subject.summary} />
+              <Summary />
               {subject.type === 2 && (
                 <>
-                  <EpManager subjectId={subject.id} />
+                  <EpManager />
                   <Divider style={{ margin: '10px 0' }} />
                 </>
               )}
@@ -44,7 +44,7 @@ const OverviewPage = () => {
             </Col>
           </Row>
           <div style={{ padding: '5px' }}>
-            <CharacterBoard subjectId={subject.id} />
+            <CharacterBoard />
             <Divider style={{ margin: '5px 0', padding: 0 }} />
             <Relation subjectId={subject.id} />
           </div>

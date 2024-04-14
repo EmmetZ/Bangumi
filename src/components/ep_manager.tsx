@@ -1,34 +1,20 @@
 import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
-import { useEpisodeContext } from '../contexts/episode';
-import useEpisode from '../hooks/useEpisode';
-import useHelper from '../hooks/useHelper';
 import { sortData } from '../services/utils';
 import '../styles/ep_manager.css';
+import { Episode } from '../types';
 import EMListItem, { EMListDivider } from './ep_manager_contents';
-import ErrorModal from './error_modal';
+import { useSubjectsContext } from '../contexts/subject';
 
 const { Title } = Typography;
 
-interface Props {
-  subjectId: number;
-}
-
-const EpManager = ({ subjectId }: Props) => {
-  const { episodes: data, setEpisode } = useEpisodeContext();
-  const {
-    states: { error, isLoading },
-    dispatches,
-  } = useHelper();
+const EpManager = () => {
+  const { get } = useSubjectsContext();
+  const eps = get('eps');
+  const subjectId = get('id');
   const navigate = useNavigate();
-  useEpisode(!data, subjectId, {
-    ...dispatches,
-    setData: setEpisode,
-  });
-  if (isLoading) return null;
-  if (error || !data) return <ErrorModal error={error} />;
-  const sortedEp = sortData(data, 'type', [0, 1]);
+  const sortedEp = sortData(eps, "type", [0, 1]);
   // console.log(sortedEp);
   return (
     <>

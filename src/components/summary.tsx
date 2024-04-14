@@ -2,14 +2,13 @@ import { Button, GetRef } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { useEffect, useRef, useState } from 'react';
 import { transSummary } from '../services/utils';
-
-interface Props {
-  text: string;
-}
+import { useSubjectsContext } from '../contexts/subject';
 
 type ParaRef = GetRef<typeof Paragraph>;
 
-const Summary = ({ text }: Props) => {
+const Summary = () => {
+  const { get } = useSubjectsContext();
+  const text = get('summary');
   const phrase = transSummary(text);
   const [collapsed, setCollapse] = useState(false);
   const [lineCount, setLineCount] = useState(0);

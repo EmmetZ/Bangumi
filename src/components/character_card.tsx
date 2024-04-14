@@ -1,14 +1,22 @@
 import { Card, Divider, Flex, Tag, Typography } from 'antd';
 import Compact from 'antd/es/space/Compact';
 import { getAvatarUrl } from '../services/utils';
-import { Actor, Character } from '../types';
+import { Actor, DSCharacter } from '../types';
 import CustomImg from './custom_img';
+import '../styles/character_card.css';
+import { BsChatFill } from 'react-icons/bs';
+import { ICON_PLACEHOLDER, WHITE_ICON } from '../constant';
 
 const { Text } = Typography;
 
 interface Props {
-  character: Character;
+  character: DSCharacter;
   size: 'small' | 'default';
+}
+
+interface CardProps {
+  character: DSCharacter;
+  color: string;
 }
 
 const getCV = (actors: Actor[]) => {
@@ -18,9 +26,8 @@ const getCV = (actors: Actor[]) => {
 };
 
 const CharacterCard = ({ character, size }: Props) => {
-  const isSmall = size === 'small';
   let color = 'default';
-  switch (character.relation) {
+  switch (character.role_name) {
     case '主角':
       color = 'volcano';
       break;
@@ -29,34 +36,88 @@ const CharacterCard = ({ character, size }: Props) => {
       break;
   }
   return (
-    <Card
-      styles={{ body: { padding: 4, overflow: 'hidden' } }}
-      style={size === 'small' ? { border: 0 } : {}}
-    >
+    <div className='character-card-container'>
+      {size === 'small' ? (
+        <SCharacterCard character={character} color={color} />
+      ) : (
+        <LCharacterCard character={character} color={color} />
+      )}
+    </div>
+  );
+};
+
+const SCharacterCard = ({ character, color }: CardProps) => {
+  // console.log(character);
+  const actors = character.actors;
+  return (
+    <Card styles={{ body: { padding: 4 } }} style={{ border: 0 }}>
+      <Text className='comment'>+({character.comment})</Text>
       <Flex style={{ margin: 0, padding: 0 }}>
         <CustomImg
-          imgUrl={getAvatarUrl(character.images.large)}
-          size={isSmall ? 48 : 77}
-          borderRadius={size === 'small' ? 8 : 10}
+          imgUrl={
+            character.images ? getAvatarUrl(character.images.large) : WHITE_ICON
+          }
+          size={48}
+          borderRadius={8}
         />
         <Flex vertical style={{ marginLeft: 8 }}>
-          <Text
-            style={{ color: '#0084b4', fontSize: isSmall ? '14px' : '18px' }}
-          >
-            {character.name}
-          </Text>
+          <div style={{ padding: 0, margin: 0 }}>
+            <Text className='name default'>{character.name}</Text>
+          </div>
           <Divider style={{ margin: '3px 0' }} />
           <div>
-            <Tag color={color} style={{ fontSize: '11px' }}>
-              {character.relation}
+            <Tag color={color} className='role-tag'>
+              {character.role_name}
             </Tag>
-            {character.actors.length > 0 &&
-              (size === 'small' ? (
-                <Text type='secondary'>cv: {getCV(character.actors)}</Text>
-              ) : (
-                <ActorBadge actors={character.actors} />
-              ))}
+            <Text className='name-cn small'>{character.name_cn}</Text>
           </div>
+          {actors && actors.length > 0 && (
+            <Text className='actor-name small'>
+              <span className='role'>cv: </span>
+              {getCV(actors)}
+            </Text>
+          )}
+        </Flex>
+      </Flex>
+    </Card>
+  );
+};
+
+const LCharacterCard = ({ character, color }: CardProps) => {
+  const actors = character.actors;
+  return (
+    <Card styles={{ body: { padding: 4 } }} style={{ border: 0 }}>
+      <Text className='comment'>
+        <BsChatFill size={14} style={{ marginRight: '4px' }} color='#ccc' />
+        +({character.comment})
+      </Text>
+      <Flex style={{ margin: 0, padding: 0 }}>
+        <CustomImg
+          imgUrl={
+            character.images ? getAvatarUrl(character.images.large) : WHITE_ICON
+          }
+          size={77}
+          borderRadius={10}
+        />
+        <Flex vertical style={{ marginLeft: 8 }}>
+          <div style={{ padding: 0, margin: 0 }}>
+            <Text className='name large'>{character.name}</Text>
+            <Text className='name-cn small'>{` / ${character.name_cn}`}</Text>
+          </div>
+          <Divider style={{ margin: '3px 0' }} />
+          <div>
+            <Tag color={color} className='role-tag'>
+              {character.role_name}
+            </Tag>
+            <Text className='small info'>{`性别: ${character.info.gender}`}</Text>
+            {character.info.birth && (
+              <Text className='small info'>{` / 生日: ${character.info.birth}`}</Text>
+            )}
+            {!character.info.birth && character.info.年龄 && (
+              <Text className='small info'>{` / 年龄: ${character.info.年龄}`}</Text>
+            )}
+          </div>
+          {actors && actors.length > 0 && <ActorBadge actors={actors} />}
         </Flex>
       </Flex>
     </Card>
@@ -71,16 +132,13 @@ const ActorBadge = ({ actors }: ActorBadgeProps) => {
   return (
     <Flex style={{ margin: '8px 0 0 5px' }}>
       {actors.map((actor) => (
-        <Compact
-          style={{ margin: '0 2px', alignItems: 'start' }}
-          key={actor.id}
-        >
+        <Compact style={{ margin: '0 2px' }} key={actor.id}>
           <CustomImg
             imgUrl={getAvatarUrl(actor.images.large)}
             size={34}
             borderRadius={5}
           />
-          <Text style={{ margin: '0 6px', color: '#555' }}>{actor.name}</Text>
+          <Text className='actor-name-badge'>{actor.name}</Text>
         </Compact>
       ))}
     </Flex>

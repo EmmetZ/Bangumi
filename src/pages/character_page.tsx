@@ -1,31 +1,18 @@
 import { Space } from 'antd';
-import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/character_card';
-import ErrorModal from '../components/error_modal';
-import { useCharacterContext } from '../contexts/character';
-import useCharacter from '../hooks/useCharacter';
-import useHelper from '../hooks/useHelper';
+import { useSubjectsContext } from '../contexts/subject';
 import { sortData } from '../services/utils';
 import { SubLayout } from './layout';
 
 const sortedKeys = ['主角', '配角', '客串'];
 
 const CharacterPage = () => {
-  const { id } = useParams();
-  const { characters: data, setCharacter } = useCharacterContext();
-  const {
-    states: { error, isLoading },
-    dispatches,
-  } = useHelper();
-  // const navigate = useNavigate();
-  useCharacter(!data, parseInt(id!), {
-    ...dispatches,
-    setData: setCharacter,
-  });
-  if (isLoading) return null;
-  if (error || !data) return <ErrorModal error={error} />;
-  const sortedData = sortData(data, 'relation');
-  // console.log(sortedData);
+  const { get } = useSubjectsContext();
+  const data = get('crt')
+  if (!data) return null;
+  // console.log(data);
+  const sortedData = sortData(data, 'role_name');
+  console.log(sortedData);
   return (
     <SubLayout style={{ margin: '0 10px'}}>
       <Space direction='vertical' style={{ width: '100%' }}>

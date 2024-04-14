@@ -33,11 +33,28 @@ EpType
   */
 export type EpType = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
-// user collection context state type
-// {
-//   subject_type: subjectType,
-//   type: collectionType
-// }
+export interface DetailedSubject {
+  id: number;
+  type: number;
+  name: string;
+  name_cn: string;
+  summary: string;
+  eps: Episode[];
+  eps_count: number;
+  air_date: string;
+  air_weekday: number;
+  // rating: Rating;
+  rank: number;
+  images: Record<ImgType, string>;
+  collection: {
+    on_hold: number;
+    dropped: number;
+    wish: number;
+    collect: number;
+    doing: number;
+  };
+  crt: DSCharacter[];
+}
 
 export interface Subject {
   id: number;
@@ -83,13 +100,23 @@ export interface InfoBoxItem {
   value: string | { v: string }[];
 }
 
-export interface Character {
+export interface DSCharacter {
   id: number;
   name: string;
-  type: number;
+  name_cn: string;
+  role_name: "主角" | "配角" | "客串";
   images: Record<ImgType, string>;
-  relation: string;
-  actors: Actor[];
+  comment: number;
+  info: {
+    name_cn: string;
+    gender: string;
+    年龄?: string;
+    birth?: string;
+  };
+  actors: Actor[] | null;
+
+  relation: "主角" | "配角" | "客串";
+  type: number;
 }
 
 export interface Actor {
@@ -123,4 +150,6 @@ export interface Episode {
   subject_id: number;
   ep: number;
   type: EpType;
+  status: "Air" | "NA";
+  // url: string;
 }

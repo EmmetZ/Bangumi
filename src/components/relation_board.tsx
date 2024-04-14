@@ -6,6 +6,7 @@ import { sortData } from '../services/utils';
 import { Subject } from '../types';
 import ErrorModal from './error_modal';
 import CustomImg from './custom_img';
+import { ICON_PLACEHOLDER } from '../constant';
 
 const { Text, Title } = Typography;
 
@@ -84,7 +85,7 @@ const Item = ({ hasRelation, item, hasDivider }: ItemProps) => {
       <Link to={`/subject/${item.id}`}>
         <CustomImg
           imgUrl={`${
-            item.images.large || 'https://bgm.tv/img/no_icon_subject.png'
+            item.images.large || ICON_PLACEHOLDER
           }`}
           size={75}
           borderRadius={10}

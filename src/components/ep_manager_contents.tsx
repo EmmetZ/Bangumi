@@ -1,14 +1,6 @@
-import {
-  Button,
-  Card,
-  Divider,
-  Popover,
-  Space,
-  Typography,
-  message,
-} from 'antd';
-import { Episode } from '../types';
+import { Button, Divider, Popover, Space, Typography, message } from 'antd';
 import { BsChatFill } from 'react-icons/bs';
+import { Episode } from '../types';
 
 const { Compact } = Space;
 const { Title, Text } = Typography;
@@ -19,7 +11,8 @@ interface ContentProps {
 
 interface CardProps {
   text: string;
-  className?: string;
+  status?: 'Air' | 'NA';
+  className?: 'card' | 'divider';
 }
 
 const EMListItem = ({ ep }: ContentProps) => {
@@ -32,7 +25,10 @@ const EMListItem = ({ ep }: ContentProps) => {
       placement='topLeft'
     >
       <>
-        <EpCard text={ep.sort < 10 ? `0${ep.sort}` : `${ep.sort}`} />
+        <EpCard
+          text={ep.sort < 10 ? `0${ep.sort}` : `${ep.sort}`}
+          status={ep.status}
+        />
       </>
     </Popover>
   );
@@ -42,20 +38,19 @@ export const EMListDivider = ({ text }: { text: string }) => {
   return <EpCard text={text} className='divider' />;
 };
 
-const EpCard = ({ text, className = 'card' }: CardProps) => {
+const EpCard = ({ text, className = 'card', status }: CardProps) => {
   return (
-    <Card
-      className={'ep-item' + ' ' + className}
-      styles={{
-        body: {
-          padding: '2px',
-          display: 'block',
-          lineHeight: '100%',
-        },
-      }}
+    <div
+      className={
+        'ep-item' +
+        ' ' +
+        className +
+        ' ' +
+        (status === 'Air' ? 'air' : 'default')
+      }
     >
-      <span style={{ fontSize: 12, userSelect: 'none' }}>{text}</span>
-    </Card>
+      <span style={{ fontSize: '12px', userSelect: 'none' }}>{text}</span>
+    </div>
   );
 };
 

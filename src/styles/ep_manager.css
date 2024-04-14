@@ -2,11 +2,32 @@ div.ep-item {
   margin: 3px;
   padding: 3px;
   border: 1px solid #d9d9d9;
-  border-radius: 0;
+  display: block;
+  line-height: 100%;
+  height: 23px;
 }
 
-div.ep-item.card:hover {
-  background-color: #ffe58f;
+/* div.ep-item.finish {
+  background-color: #4897ff;
+  border: 1px solid #1175a8;
+  color: #fff;
+} */
+
+div.ep-item.air {
+  background-color: #daeaff;
+  border: 1px solid #00a8ff;
+  color: #06C;
+}
+
+div.ep-item.default {
+  background-color: #e0e0e0;
+  border: 1px solid #b6b6b6;
+  color: #909090;
+}
+
+div.ep-item:hover {
+  padding: 2px 3px 3px 3px;
+  border-top-width: 2px;
 }
 
 div.ep-item.divider {

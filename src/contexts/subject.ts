@@ -1,8 +1,19 @@
-import { createContext, useContext } from "react";
-import { Subject } from "../types";
+import { createContext, useContext } from 'react';
+import { DetailedSubject, Subject } from '../types';
 
-const SubjectContext = createContext<Subject>({} as Subject);
+// interface DSAction {
+//   type: string;
+//   value?: any;
+// }
 
-export const useSubjectContext = () => useContext(SubjectContext);
+interface SubjectsContext {
+  subject: Subject;
+  detailedSubject: DetailedSubject;
+  get: <K extends keyof DetailedSubject>(key: K) => DetailedSubject[K];
+}
 
-export default SubjectContext;
+export const SubjectsContext = createContext<SubjectsContext>({} as SubjectsContext);
+
+export const useSubjectsContext = () => {
+  return useContext(SubjectsContext);
+};

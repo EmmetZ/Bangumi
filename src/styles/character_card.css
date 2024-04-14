@@ -1,0 +1,48 @@
+span.comment {
+  color: #f90;
+  font-size: 11px;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+span.name {
+  color: #0084b4;
+  padding: 0;
+}
+
+div.character-card-container span.small {
+  font-size: 12px;
+}
+
+div.character-card-container span.default {
+  font-size: 14px;
+}
+
+div.character-card-container span.large {
+  font-size: 18px;
+}
+
+span.role-tag {
+  font-size: '12px';
+  padding: '0px 1px';
+}
+
+span.name-cn,
+span.info
+{
+  color: #666666;
+}
+
+span.actor-name {
+  color: #444444;
+}
+
+span.actor-name-badge {
+  margin: -2px 6px 0 6px;
+  color: #555;
+}
+
+span.role {
+  color: #999999;
+}
