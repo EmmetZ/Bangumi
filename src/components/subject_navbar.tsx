@@ -60,15 +60,15 @@ const SubjectNavBar: FC<Props> = ({ platform, name, type }) => {
     },
     {
       label: "评论",
-      key: "comments",
+      key: "reviews",
     },
     {
       label: "讨论版",
-      key: "chatboard",
+      key: "board",
     },
     {
       label: "透视",
-      key: "userperspective",
+      key: "stats",
     },
   ].map((item) => ({ ...item, ...itemStyle }));
   if (type === 1) menuItems = menuItems.filter((item) => item?.key !== "ep");

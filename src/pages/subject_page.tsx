@@ -1,32 +1,13 @@
 import { Layout } from 'antd';
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import ErrorModal from '../components/error_modal';
 import SubjectNavBar from '../components/subject_navbar';
 import { SubjectsContext } from '../contexts/subject';
 import { useSubjects } from '../hooks/useSubject';
-import { DetailedSubject, Subject } from '../types';
 import { SubLayout } from './layout';
 
 const { Header, Content } = Layout;
-
-interface ContextProviderProps {
-  children: ReactNode;
-  value: { subject: Subject; detailedSubject: DetailedSubject};
-}
-
-const SubjectsProvider = ({ children, value }: ContextProviderProps) => {
-  const { subject, detailedSubject } = value;
-  function get<K extends keyof DetailedSubject>(key: K): DetailedSubject[K] {
-    return detailedSubject[key];
-  }
-
-  return (
-    <SubjectsContext.Provider value={{ subject, detailedSubject, get }}>
-      {children}
-    </SubjectsContext.Provider>
-  );
-};
 
 const SubjectPage = () => {
   const { id } = useParams();
@@ -55,9 +36,9 @@ const SubjectPage = () => {
         />
       </Header>
       <Content>
-        <SubjectsProvider value={{ subject, detailedSubject }}>
+        <SubjectsContext.Provider value={{ subject, detailedSubject }}>
           <Outlet />
-        </SubjectsProvider>
+        </SubjectsContext.Provider>
       </Content>
     </SubLayout>
   );

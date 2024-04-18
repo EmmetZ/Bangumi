@@ -54,6 +54,8 @@ export interface DetailedSubject {
     doing: number;
   };
   crt: DSCharacter[];
+  blog: Blog[];
+  topic: Topic[];
 }
 
 export interface Subject {
@@ -152,4 +154,22 @@ export interface Episode {
   type: EpType;
   status: "Air" | "NA";
   // url: string;
+}
+
+export interface Blog {
+  id: number;
+  title: string;
+  summary: string;
+  replies: number;
+  dateline: string;
+  user: User
+}
+
+export interface Topic {
+  id: number;
+  title: string;
+  replies: number;
+  user: User;
+  timestamp: number;
+  url: string;
 }

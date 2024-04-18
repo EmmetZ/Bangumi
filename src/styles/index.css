@@ -3,32 +3,35 @@
   transform: scale(0.9);
 }
 
-button.more-character {
+button.more {
   color: #aaa;
-  left: 80%
+  left: 90%;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
 }
 
-button.more-character:hover {
-  color: #0084B4;
+button.more:hover {
+  color: #0084b4;
 }
 
 .rating-card {
   padding: 10px;
   width: 100%;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.09);
-  border: 1px solid #F0F0F0;
+  border: 1px solid #f0f0f0;
   border-radius: 15px;
   background-image: linear-gradient(#f8f9f9, #f0f1f2 99%, #e4e4e5);
   background-size: 40px 45px;
-  background-repeat: repeat-x
+  background-repeat: repeat-x;
 }
 
 .ant-typography.board-title {
-  margin: 10px;
+  margin: 5px;
 }
 
-span.relation-link {
-  color: #0084B4;
+span.relation-title {
+  color: #0084b4;
   margin: 0;
   padding: 0;
   line-height: 1.1;
@@ -37,7 +40,14 @@ span.relation-link {
   display: inline-block;
 }
 
-span.relation-link:hover {
+.blog-title,
+.topic-title {
+  color: #0084B4 !important;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.text-link:hover {
   text-decoration: underline;
 }
 

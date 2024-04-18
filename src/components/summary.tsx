@@ -7,8 +7,7 @@ import { useSubjectsContext } from '../contexts/subject';
 type ParaRef = GetRef<typeof Paragraph>;
 
 const Summary = () => {
-  const { get } = useSubjectsContext();
-  const text = get('summary');
+  const text = useSubjectsContext('summary');
   const phrase = transSummary(text);
   const [collapsed, setCollapse] = useState(false);
   const [lineCount, setLineCount] = useState(0);

@@ -8,9 +8,11 @@ import Summary from '../components/summary';
 import TagList from '../components/tag_list';
 import { useSubjectsContext } from '../contexts/subject';
 import { SubLayout } from './layout';
+import Blogs from '../components/blogs';
+import TopicBoard from '../components/topic_board';
 
 const OverviewPage = () => {
-  const { subject, get } = useSubjectsContext();
+  const subject = useSubjectsContext("subject");
   // console.log(subject);
   return (
     <SubLayout>
@@ -43,10 +45,14 @@ const OverviewPage = () => {
               <RatingCard rating={subject.rating} />
             </Col>
           </Row>
-          <div style={{ padding: '5px' }}>
+          <div style={{ padding: '5px 0' }}>
             <CharacterBoard />
-            <Divider style={{ margin: '5px 0', padding: 0 }} />
+            <Divider style={{ margin: '10px 0', padding: 0 }} />
             <Relation subjectId={subject.id} />
+            <Divider style={{ margin: '10px 0', padding: 0 }} />
+            <Blogs />
+            <Divider style={{ margin: '10px 0', padding: 0 }} />
+            <TopicBoard />
           </div>
         </Col>
       </Row>

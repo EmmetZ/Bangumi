@@ -10,9 +10,8 @@ import { useSubjectsContext } from '../contexts/subject';
 const { Title } = Typography;
 
 const EpManager = () => {
-  const { get } = useSubjectsContext();
-  const eps = get('eps');
-  const subjectId = get('id');
+  const eps = useSubjectsContext('eps');
+  const subjectId = useSubjectsContext("id")
   const navigate = useNavigate();
   const sortedEp = sortData(eps, "type", [0, 1]);
   // console.log(sortedEp);

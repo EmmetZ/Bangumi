@@ -37,8 +37,7 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const EpisodePage = () => {
-  const { get } = useSubjectsContext();
-  const eps = get('eps');
+  const eps = useSubjectsContext('eps');
   const sortedEps = sortData(eps, 'type');
   // console.log(sortedEps);
 

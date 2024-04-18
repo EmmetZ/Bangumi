@@ -6,16 +6,15 @@ import CharacterCard from './character_card';
 import { useSubjectsContext } from '../contexts/subject';
 
 const CharacterBoard = () => {
-  const { get } = useSubjectsContext();
-  const data = get('crt');
-  const subjectId = get('id');
+  const data = useSubjectsContext('crt');
+  const subjectId = useSubjectsContext('id');
   const navigate = useNavigate();
-  console.log(data);
+  // console.log(data);
   if (!data) return null;
   if (data.length === 0) return null;
   return (
     <>
-      <Typography.Title level={3} className='board-title'>
+      <Typography.Title level={4} className='board-title'>
         角色介绍
       </Typography.Title>
       <Row>
@@ -38,7 +37,7 @@ const CharacterBoard = () => {
       </Row>
       <div>
         <Button
-          className='more-character'
+          className='more'
           type='link'
           onClick={() => navigate(`/subject/${subjectId}/characters`)}
         >

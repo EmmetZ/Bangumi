@@ -7,12 +7,10 @@ import { SubLayout } from './layout';
 const sortedKeys = ['主角', '配角', '客串'];
 
 const CharacterPage = () => {
-  const { get } = useSubjectsContext();
-  const data = get('crt')
+  const data = useSubjectsContext('crt');
   if (!data) return null;
-  // console.log(data);
   const sortedData = sortData(data, 'role_name');
-  console.log(sortedData);
+  // console.log(sortedData);
   return (
     <SubLayout style={{ margin: '0 10px'}}>
       <Space direction='vertical' style={{ width: '100%' }}>

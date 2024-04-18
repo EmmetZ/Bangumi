@@ -26,3 +26,9 @@ img.collection-card-cover {
   object-fit: cover;
   aspect-ratio: 3 / 4
 }
+
+span.blog-avatar {
+  margin: 4px 4px 0 0;
+  border: 1px solid #A9A9AB;
+  box-shadow: 0 1px 5px #AAA
+}

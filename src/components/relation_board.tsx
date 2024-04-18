@@ -35,10 +35,10 @@ const Relation = ({ subjectId }: Props) => {
   const sortedData = sortData(data, 'relation');
   return (
     <>
-      <Title level={3} className='board-title'>
+      <Title level={4} className='board-title'>
         关联条目
       </Title>
-      <Flex wrap='wrap' style={{ padding: 4 }}>
+      <Flex wrap='wrap' style={{ padding: '0 5px' }}>
         {Object.keys(sortedData).map((key, i) => {
           return (
             // <Flex wrap='wrap'>
@@ -90,7 +90,7 @@ const Item = ({ hasRelation, item, hasDivider }: ItemProps) => {
           size={75}
           borderRadius={10}
         />
-        <Text className='relation-link'>{cropText(item.name)}</Text>
+        <Text className='text-link relation-title'>{cropText(item.name)}</Text>
       </Link>
     </Space.Compact>
   );
