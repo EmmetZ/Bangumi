@@ -2,36 +2,53 @@ import { Avatar, Button, Divider, Flex, Space, Typography } from 'antd';
 import { useSubjectsContext } from '../contexts/subject';
 import { Blog } from '../types';
 import { Link, useNavigate } from 'react-router-dom';
+import { CSSProperties } from 'react';
 
 const { Title, Text } = Typography;
 
-const Blogs = () => {
-  const data = useSubjectsContext('blog');
+const BlogSection = () => {
   const subjectId = useSubjectsContext('id');
   const navigate = useNavigate();
   // console.log('data: ', data)
-  if (!data) return null;
-  if (data.length === 0) return null;
   return (
     <>
       <Title level={4} className='board-title'>
         评论
       </Title>
-      <Flex vertical style={{ padding: '0 10px' }}>
-        {data.map((item, index) =>
-          index < 5 ? <BlogItem blog={item} key={item.id} /> : null
-        )}
-      </Flex>
+      <Blogs />
       <div>
         <Button
           className='more'
           type='link'
-          // onClick={() => navigate(`/subject/${subjectId}/reviews`)}
+          onClick={() => navigate(`/subject/${subjectId}/reviews`)}
         >
           {'更多评论>>'}
         </Button>
       </div>
     </>
+  );
+};
+
+interface BlogsProps {
+  maxNum?: number | 'all';
+  style?: CSSProperties;
+}
+
+export const Blogs = ({
+  maxNum = 3,
+  style = { padding: '0 10px' },
+}: BlogsProps) => {
+  const data = useSubjectsContext('blog');
+  if (!data) return null;
+  if (data.length === 0) return null;
+  let num = maxNum === 'all' ? data.length : maxNum;
+  return (
+    <Flex vertical style={style}>
+      {data.map(
+        (item, index) =>
+          index < num ? <BlogItem blog={item} key={item.id} /> : null
+      )}
+    </Flex>
   );
 };
 
@@ -83,4 +100,4 @@ const BlogInfo = ({ blog }: ItemProps) => {
     </Space.Compact>
   );
 };
-export default Blogs;
+export default BlogSection;

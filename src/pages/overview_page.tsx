@@ -8,7 +8,7 @@ import Summary from '../components/summary';
 import TagList from '../components/tag_list';
 import { useSubjectsContext } from '../contexts/subject';
 import { SubLayout } from './layout';
-import Blogs from '../components/blogs';
+import BlogSection from '../components/blogs';
 import TopicBoard from '../components/topic_board';
 
 const OverviewPage = () => {
@@ -50,7 +50,7 @@ const OverviewPage = () => {
             <Divider style={{ margin: '10px 0', padding: 0 }} />
             <Relation subjectId={subject.id} />
             <Divider style={{ margin: '10px 0', padding: 0 }} />
-            <Blogs />
+            <BlogSection />
             <Divider style={{ margin: '10px 0', padding: 0 }} />
             <TopicBoard />
           </div>
