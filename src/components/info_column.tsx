@@ -43,7 +43,7 @@ const Entry = ({ label, value }: EntryProps) => {
     <div>
       <div style={{ marginBottom: "2px" }}>
         <span style={{ color: "#666" }}>{label}: </span>
-        <span style={{ color: "#222"}}>
+        <span style={{ color: "#222", wordBreak: "break-all" }}>
           {Array.isArray(value)
             ? value.map(({ v }, index) => {
                 if (index === value.length - 1) return v;
