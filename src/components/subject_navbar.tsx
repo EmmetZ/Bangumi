@@ -33,6 +33,8 @@ const SubjectNavBar: FC<Props> = ({ platform, name, type }) => {
       setCurrent("characters");
     else if (loc.pathname.endsWith("reviews")) 
       setCurrent("reviews");
+    else if (loc.pathname.endsWith("board")) 
+      setCurrent("board");
     else setCurrent("overview");
   }, [loc])
 
@@ -68,6 +70,7 @@ const SubjectNavBar: FC<Props> = ({ platform, name, type }) => {
     {
       label: "讨论版",
       key: "board",
+      onClick: () => navigate(`/subject/${id}/board`)
     },
     {
       label: "透视",

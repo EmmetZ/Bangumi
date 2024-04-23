@@ -7,6 +7,8 @@ import LoginPage from './pages/login_page';
 import EpisodePage from './pages/ep_page';
 import CharacterPage from './pages/character_page';
 import BlogPage from './pages/blog_page';
+import DetailPage from './pages/detail_page';
+import TopicPage from './pages/topic_page';
 
 const router = createBrowserRouter([
   {
@@ -19,9 +21,16 @@ const router = createBrowserRouter([
         element: <SubjectPage />,
         children: [
           { index: true, element: <OverviewPage /> },
-          { path: 'ep', element: <EpisodePage /> },
-          { path: 'characters', element: <CharacterPage /> },
-          { path: 'reviews', element: <BlogPage />},
+          {
+            path: '',
+            element: <DetailPage />,
+            children: [
+              { path: 'ep', element: <EpisodePage /> },
+              { path: 'characters', element: <CharacterPage /> },
+              { path: 'reviews', element: <BlogPage /> },
+              { path: 'board', element: <TopicPage /> },
+            ],
+          },
         ],
       },
       {

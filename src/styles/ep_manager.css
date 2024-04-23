@@ -25,7 +25,7 @@ div.ep-item.default {
   color: #909090;
 }
 
-div.ep-item:hover {
+div.ep-item.card:hover {
   padding: 2px 3px 3px 3px;
   border-top-width: 2px;
 }

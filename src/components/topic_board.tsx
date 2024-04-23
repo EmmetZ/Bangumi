@@ -1,42 +1,59 @@
 import { Button, List, Space, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSubjectsContext } from '../contexts/subject';
 import { Topic } from '../types';
+import { CSSProperties } from 'react';
 
 const { Title, Text } = Typography;
 
 const TopicBoard = () => {
-  const data = useSubjectsContext('topic');
-  if (!data) return null;
-  if (data.length === 0) return null;
-  // console.log('data: ', data);
+  const subjectId = useSubjectsContext('id');
+  const navigate = useNavigate();
   return (
     <>
       <Title level={4} className='board-title'>
         讨论版
       </Title>
-      <List
-        style={{ padding: '0 10px' }}
-        dataSource={data}
-        itemLayout='horizontal'
-        renderItem={(item, index) =>
-          index < 5 ? (
-            <List.Item>
-              <TopicItem topic={item} key={item.id} />
-            </List.Item>
-          ) : null
-        }
-      />
+      <Topics />
       <div>
         <Button
           className='more'
           type='link'
-          // onClick={() => navigate(`/subject/${subjectId}/board`)}
+          onClick={() => navigate(`/subject/${subjectId}/board`)}
         >
           {'更多讨论>>'}
         </Button>
       </div>
     </>
+  );
+};
+
+
+interface TopicsProps {
+  max?: number | 'all';
+  style?: CSSProperties;
+}
+
+export const Topics = ({ max = 5, style = { padding: '0 10px' } }: TopicsProps) => {
+  const data = useSubjectsContext('topic');
+  if (!data) return null;
+  if (data.length === 0) return null;
+  // console.log('data: ', data);
+  let num = max === 'all' ? data.length : max;
+  return (
+    <List
+      style={style}
+      dataSource={data}
+      size='small'
+      itemLayout='horizontal'
+      renderItem={(item, index) =>
+        index < num ? (
+          <List.Item className={index % 2 ? 'odd' : 'even'}>
+            <TopicItem topic={item} key={item.id} />
+          </List.Item>
+        ) : null
+      }
+    />
   );
 };
 
@@ -51,7 +68,7 @@ const TopicItem = ({ topic }: Props) => {
       key={topic.id}
       style={{ width: '100%', alignItems: 'center' }}
     >
-      <Link to={topic.url} style={{ width: '55%', left: 0 }} target="_blank">
+      <Link to={topic.url} style={{ width: '55%', left: 0, marginRight: '5px' }} target='_blank'>
         <Text className='topic-title text-link'>{topic.title}</Text>
       </Link>
       <Text style={{ width: '20%' }}>{topic.user.nickname}</Text>

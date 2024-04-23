@@ -35,3 +35,7 @@ export const sortData = <T extends Record<string, any>>(
   });
   return sortedData;
 };
+
+export const getSubjectAvatar = (url: string, size = 100) => {
+  return url.replace(RegExp('/r/\\d+/'), `/r/${size}x${size}/`)
+}

@@ -11,7 +11,6 @@ import {
 import { useSubjectsContext } from '../contexts/subject';
 import { sortData } from '../services/utils';
 import { EpType, Episode } from '../types';
-import { SubLayout } from './layout';
 
 const EpTypeMap: Record<EpType, string> = {
   0: '本篇',
@@ -42,7 +41,7 @@ const EpisodePage = () => {
   // console.log(sortedEps);
 
   return (
-    <SubLayout style={{ margin: '0 10px'}}>
+    <div style={{ margin: '0 10px' }}>
       {Object.keys(sortedEps).map((key) => {
         return (
           <div key={key}>
@@ -58,7 +57,7 @@ const EpisodePage = () => {
           </div>
         );
       })}
-    </SubLayout>
+    </div>
   );
 };
 
@@ -68,13 +67,11 @@ interface ItemProps {
 }
 
 const EpListItem = ({ ep, index }: ItemProps) => {
-  const isAir = ep.status !== "Air";
+  const isAir = ep.status !== 'Air';
   return (
     <Card
-      style={{
-        margin: '10px',
-        backgroundColor: index % 2 ? '#fff' : '#f9f9f9',
-      }}
+      className={index % 2 ? 'odd' : 'even'}
+      style={{ margin: '10px' }}
       styles={{
         body: {
           padding: '10px 20px',

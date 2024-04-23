@@ -30,18 +30,18 @@ const BlogSection = () => {
 };
 
 interface BlogsProps {
-  maxNum?: number | 'all';
+  max?: number | 'all';
   style?: CSSProperties;
 }
 
 export const Blogs = ({
-  maxNum = 3,
+  max = 3,
   style = { padding: '0 10px' },
 }: BlogsProps) => {
   const data = useSubjectsContext('blog');
   if (!data) return null;
   if (data.length === 0) return null;
-  let num = maxNum === 'all' ? data.length : maxNum;
+  let num = max === 'all' ? data.length : max;
   return (
     <Flex vertical style={style}>
       {data.map(

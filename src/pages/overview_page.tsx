@@ -15,7 +15,7 @@ const OverviewPage = () => {
   const subject = useSubjectsContext("subject");
   // console.log(subject);
   return (
-    <SubLayout>
+    <SubLayout style={{ margin: '0 10px'}}>
       <Row gutter={[16, 0]}>
         <Col span={5}>
           {subject.images.large && (
