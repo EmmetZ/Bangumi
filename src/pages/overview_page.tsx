@@ -10,13 +10,17 @@ import { useSubjectsContext } from '../contexts/subject';
 import { SubLayout } from './layout';
 import BlogSection from '../components/blogs';
 import TopicBoard from '../components/topic_board';
+import useLaptop from '../hooks/useLaptop';
 
-// todo 小屏切换布局
 const OverviewPage = () => {
-  const subject = useSubjectsContext("subject");
-  // console.log(subject);
+  const isLaptop = useLaptop();
+  return isLaptop ? _LOverview() : _SOverview();
+};
+
+const _LOverview = () => {
+  const subject = useSubjectsContext('subject');
   return (
-    <SubLayout style={{ margin: '0 10px'}}>
+    <SubLayout style={{ margin: '0 10px' }}>
       <Row gutter={[16, 0]}>
         <Col span={5}>
           {subject.images.large && (
@@ -57,6 +61,48 @@ const OverviewPage = () => {
           </div>
         </Col>
       </Row>
+    </SubLayout>
+  );
+};
+
+const _SOverview = () => {
+  const subject = useSubjectsContext('subject');
+  return (
+    <SubLayout style={{ margin: '0 10px' }}>
+      {subject.images.large && (
+        <Image
+          className='overview-main-cover'
+          src={subject.images.large}
+          draggable
+          style={{
+            width: '50%',
+            objectFit: 'cover',
+            margin: '0 auto',
+            display: 'block',
+          }}
+          placeholder
+        />
+      )}
+
+      <InfoColumn info={subject.infobox} />
+      <Summary />
+      {subject.type === 2 && (
+        <>
+          <EpManager />
+          <Divider style={{ margin: '10px 0' }} />
+        </>
+      )}
+      {subject.tags.length > 0 && <TagList tags={subject.tags} />}
+      <RatingCard rating={subject.rating} />
+      <div style={{ padding: '5px 0' }}>
+        <CharacterBoard />
+        <Divider style={{ margin: '10px 0', padding: 0 }} />
+        <Relation subjectId={subject.id} />
+        <Divider style={{ margin: '10px 0', padding: 0 }} />
+        <BlogSection />
+        <Divider style={{ margin: '10px 0', padding: 0 }} />
+        <TopicBoard />
+      </div>
     </SubLayout>
   );
 };

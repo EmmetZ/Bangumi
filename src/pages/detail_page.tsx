@@ -3,8 +3,14 @@ import { Link, Outlet } from 'react-router-dom';
 import { useSubjectsContext } from '../contexts/subject';
 import { getSubjectAvatar } from '../services/utils';
 import { SubLayout } from './layout';
+import useLaptop from '../hooks/useLaptop';
 
 const DetailPage = () => {
+  const isLaptop = useLaptop();
+  return isLaptop ? _LDetailPage() : _SDetailPage();
+};
+
+const _LDetailPage = () => {
   const { images, name, id } = useSubjectsContext('subject');
   return (
     <SubLayout style={{ margin: '0 10px' }}>
@@ -13,7 +19,7 @@ const DetailPage = () => {
           <Outlet />
         </Col>
         <Col span={6}>
-          <Card // todo 小屏幕下隐藏
+          <Card
             styles={{ body: { padding: '10px' } }}
             style={{ boxShadow: '0 0px 5px #eaeaea', marginTop: '10px' }}
           >
@@ -44,4 +50,11 @@ const DetailPage = () => {
   );
 };
 
+const _SDetailPage = () => {
+  return (
+    <SubLayout style={{ margin: '0 10px' }}>
+      <Outlet />
+    </SubLayout>
+  );
+};
 export default DetailPage;

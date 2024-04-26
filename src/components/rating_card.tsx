@@ -3,6 +3,7 @@ import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import '../styles/tooltip.css';
 import { Rating } from '../types';
 import { Grid } from 'antd';
+import useLaptop from '../hooks/useLaptop';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -18,6 +19,7 @@ interface Props {
 
 const RatingCard = ({ rating }: Props) => {
   const xl = useBreakpoint().xl;
+  const isLaptop = useLaptop();
   const { rank, total, score, count } = rating;
   let color: 'green' | 'gold' | 'orange';
 
@@ -34,7 +36,7 @@ const RatingCard = ({ rating }: Props) => {
         Rating
       </Typography.Title>
       <RatingBar detail={count} total={total} />
-      <Flex vertical={!xl}>
+      <Flex vertical={isLaptop && !xl}>
         <div style={{ margin: '4px 0' }}>
           <Tag color={color} style={{ fontSize: 22, padding: 5 }}>
             {score.toFixed(1)}
@@ -62,13 +64,14 @@ interface BarProps {
 
 const RatingBar = ({ total, detail }: BarProps) => {
   const lg = useBreakpoint().lg;
+  const isLaptop = useLaptop();
   let data = [] as ColumnData[];
   for (const key in detail) {
     data.unshift({ score: key, count: detail[key] });
   }
   return (
     <ResponsiveContainer
-      width='100%'
+      width={isLaptop ? '100%' : '50%'}
       height={150}
       style={{
         backgroundColor: '#fbfbfb',
