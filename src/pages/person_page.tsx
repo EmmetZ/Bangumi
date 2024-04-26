@@ -42,7 +42,7 @@ const PersonPage = () => {
                 <Space.Compact style={{ marginTop: '3px'}}>
                   {typeof person.relation !== 'string' ? (
                     person.relation.map((r) => {
-                      return <Tag style={{ color: "#909090"}}>{r}</Tag>;
+                      return <Tag key={r} style={{ color: "#909090"}}>{r}</Tag>;
                     })
                   ) : (
                     <Tag style={{ color: "#909090"}}>{person.relation}</Tag>
