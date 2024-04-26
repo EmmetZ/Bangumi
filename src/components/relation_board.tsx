@@ -1,7 +1,7 @@
 import { Flex, Space, Typography } from 'antd';
 import { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { UseSubjectRelation } from '../hooks/useSubject';
+import { useSubjectRelation } from '../hooks/useSubject';
 import { sortData } from '../services/utils';
 import { Subject } from '../types';
 import ErrorModal from './error_modal';
@@ -28,7 +28,7 @@ const cropText = (text: string, maxLen = 15) => {
 };
 
 const Relation = ({ subjectId }: Props) => {
-  const { data, isLoading, error } = UseSubjectRelation(subjectId);
+  const { data, isLoading, error } = useSubjectRelation(subjectId);
   if (isLoading) return null;
   if (error || !data) return <ErrorModal error={error} />;
   // console.log(data);

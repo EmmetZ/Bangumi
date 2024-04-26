@@ -35,7 +35,7 @@ const SubjectPage = () => {
           type={subject.type}
         />
       </Header>
-      <Content>
+      <Content style={{ marginTop: '5px'}}>
         <SubjectsContext.Provider value={{ subject, detailedSubject }}>
           <Outlet />
         </SubjectsContext.Provider>

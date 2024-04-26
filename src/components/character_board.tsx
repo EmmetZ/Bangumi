@@ -7,7 +7,6 @@ import { useSubjectsContext } from '../contexts/subject';
 
 const CharacterBoard = () => {
   const data = useSubjectsContext('crt');
-  const subjectId = useSubjectsContext('id');
   const navigate = useNavigate();
   // console.log(data);
   if (!data) return null;
@@ -39,7 +38,7 @@ const CharacterBoard = () => {
         <Button
           className='more'
           type='link'
-          onClick={() => navigate(`/subject/${subjectId}/characters`)}
+          onClick={() => navigate(`./characters`)}
         >
           {'查看更多>>'}
         </Button>

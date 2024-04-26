@@ -7,7 +7,6 @@ import { CSSProperties } from 'react';
 const { Title, Text } = Typography;
 
 const BlogSection = () => {
-  const subjectId = useSubjectsContext('id');
   const navigate = useNavigate();
   // console.log('data: ', data)
   return (
@@ -20,7 +19,7 @@ const BlogSection = () => {
         <Button
           className='more'
           type='link'
-          onClick={() => navigate(`/subject/${subjectId}/reviews`)}
+          onClick={() => navigate(`./reviews`)}
         >
           {'更多评论>>'}
         </Button>

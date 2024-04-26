@@ -1,23 +1,25 @@
-import { Button, Divider, Space } from "antd";
-import { InfoBoxItem } from "../types";
+import { Button, Divider, Space } from 'antd';
+import { InfoBoxItem } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   info: InfoBoxItem[];
 }
 
 const speItem = [
-  "播放电视台",
-  "其他电视台",
-  "Copyright",
-  "官方网站",
-  "放送结束",
-  "播放结束",
+  '播放电视台',
+  '其他电视台',
+  'Copyright',
+  '官方网站',
+  '放送结束',
+  '播放结束',
 ];
 
 const InfoColumn = ({ info }: Props) => {
   const spe = info.filter(({ key }) => speItem.includes(key));
+  const navigate = useNavigate();
   return (
-    <Space.Compact direction="vertical" style={{ marginTop: 5, width: "100%" }}>
+    <Space.Compact direction='vertical' style={{ marginTop: 5, width: '100%' }}>
       {info.map(
         ({ key, value }) =>
           !speItem.includes(key) && (
@@ -28,7 +30,14 @@ const InfoColumn = ({ info }: Props) => {
         spe.map(({ key, value }) => (
           <Entry label={key} value={value} key={key} />
         ))}
-      <Button type="default">+更多制作人员</Button>
+      <Button
+        type='default'
+        onClick={() => {
+          navigate('./persons');
+        }}
+      >
+        +更多制作人员
+      </Button>
     </Space.Compact>
   );
 };
@@ -41,18 +50,18 @@ interface EntryProps {
 const Entry = ({ label, value }: EntryProps) => {
   return (
     <div>
-      <div style={{ marginBottom: "2px" }}>
-        <span style={{ color: "#666" }}>{label}: </span>
-        <span style={{ color: "#222", wordBreak: "break-all" }}>
+      <div style={{ marginBottom: '2px' }}>
+        <span style={{ color: '#666' }}>{label}: </span>
+        <span style={{ color: '#222', wordBreak: 'break-all' }}>
           {Array.isArray(value)
             ? value.map(({ v }, index) => {
                 if (index === value.length - 1) return v;
-                return v + " / ";
+                return v + ' / ';
               })
             : value}
         </span>
       </div>
-      <Divider style={{ margin: "3px 0" }} />
+      <Divider style={{ margin: '3px 0' }} />
     </div>
   );
 };

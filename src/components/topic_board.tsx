@@ -7,7 +7,6 @@ import { CSSProperties } from 'react';
 const { Title, Text } = Typography;
 
 const TopicBoard = () => {
-  const subjectId = useSubjectsContext('id');
   const navigate = useNavigate();
   return (
     <>
@@ -19,7 +18,7 @@ const TopicBoard = () => {
         <Button
           className='more'
           type='link'
-          onClick={() => navigate(`/subject/${subjectId}/board`)}
+          onClick={() => navigate(`./board`)}
         >
           {'更多讨论>>'}
         </Button>

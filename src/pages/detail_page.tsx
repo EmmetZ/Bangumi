@@ -13,7 +13,7 @@ const DetailPage = () => {
           <Outlet />
         </Col>
         <Col span={6}>
-          <Card
+          <Card // todo 小屏幕下隐藏
             styles={{ body: { padding: '10px' } }}
             style={{ boxShadow: '0 0px 5px #eaeaea', marginTop: '10px' }}
           >

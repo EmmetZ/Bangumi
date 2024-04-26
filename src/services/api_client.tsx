@@ -1,10 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { resolve } from 'path';
-import { rejects } from 'assert';
 import {
-  UserCollectionQuery,
-  Response,
   Collection,
+  Response,
+  UserCollectionQuery,
 } from '../hooks/types';
 import { DetailedSubject, Episode, User } from '../types';
 
@@ -65,7 +63,7 @@ class ApiClient {
     return apiClient.get<User>(`/v0/users/${userId}`).then((res) => res.data);
   }
 
-  // 改为可重复请求
+  // todo 改为可重复请求
   getSubject<T>(endpoint: string, config: AxiosRequestConfig) {
     return apiClient
       .get<T>('/v0/subjects' + endpoint, { ...config })

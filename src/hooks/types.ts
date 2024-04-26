@@ -30,3 +30,12 @@ export type Dispatches<T> = {
   setError: Dispatch<string>;
   setLoading: Dispatch<boolean>;
 };
+
+export interface Person {
+  images: Record<ImgType, string>;
+  name: string;
+  relation: string | string[];
+  career: string[];
+  type: number;
+  id: number;
+}

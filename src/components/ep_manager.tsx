@@ -11,7 +11,6 @@ const { Title } = Typography;
 
 const EpManager = () => {
   const eps = useSubjectsContext('eps');
-  const subjectId = useSubjectsContext("id")
   const navigate = useNavigate();
   const sortedEp = sortData(eps, "type", [0, 1]);
   // console.log(sortedEp);
@@ -22,7 +21,7 @@ const EpManager = () => {
         <Button
           type='link'
           className='more-eps'
-          onClick={() => navigate(`/subject/${subjectId}/ep`)}
+          onClick={() => navigate(`./ep`)}
         >
           {'更多>>'}
         </Button>

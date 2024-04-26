@@ -2,7 +2,7 @@ import { AxiosRequestConfig, CanceledError } from 'axios';
 import { useEffect, useState } from 'react';
 import ApiClient from '../services/api_client';
 import { DetailedSubject, Subject } from '../types';
-import { ImgType } from './types';
+import { ImgType, Person } from './types';
 
 export const useSubject = (subjectId: string) => {
   // console.log('useSubject', subjectId)
@@ -29,8 +29,11 @@ export const useSubjects = (subjectId: string) => {
 export const useSubjectImage = (subjectId: number, imgType: ImgType) =>
   _useSubject<string>(`/${subjectId}/image`, { params: { type: imgType } });
 
-export const UseSubjectRelation = (subjectId: number) =>
+export const useSubjectRelation = (subjectId: number) =>
   _useSubject<Subject[]>(`/${subjectId}/subjects`);
+
+export const useSubjectPerson = (subjectId: number) =>
+  _useSubject<Person[]>(`/${subjectId}/persons`);
 
 const _useSubject = <T>(endpoint: string, config: AxiosRequestConfig = {}) => {
   const [data, setData] = useState<T>();

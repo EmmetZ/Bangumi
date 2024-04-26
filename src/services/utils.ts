@@ -1,7 +1,11 @@
-import { ICON_PLACEHOLDER } from "../constant";
+import { ICON_PLACEHOLDER } from '../constant';
 
-export interface SortedData<T> {
+interface SortedData<T> {
   [key: string]: T[];
+}
+
+interface MergedData<T> {
+  [key: string]: T;
 }
 
 export const transSummary = (data: string) => {
@@ -15,8 +19,8 @@ export const transSummary = (data: string) => {
   return phrase;
 };
 
-export const getAvatarUrl = (url: string) => {
-  if (!url) return ICON_PLACEHOLDER;
+export const getAvatarUrl = (url: string, defaultUrl = ICON_PLACEHOLDER) => {
+  if (!url) return defaultUrl;
   return url.replace('crt/l', 'crt/g');
 };
 
@@ -37,5 +41,32 @@ export const sortData = <T extends Record<string, any>>(
 };
 
 export const getSubjectAvatar = (url: string, size = 100) => {
-  return url.replace(RegExp('/r/\\d+/'), `/r/${size}x${size}/`)
-}
+  return url.replace(RegExp('/r/\\d+/'), `/r/${size}x${size}/`);
+};
+
+export const merge = <T extends Record<string, any>>(
+  data: T[],
+  filter: keyof T,
+  mergeKey: keyof T
+) => {
+  let mergedData: MergedData<T> = {};
+  data.forEach((item) => {
+    if (!mergedData[item[filter]]) {
+      mergedData[item[filter]] = deepCopy(item);
+      return;
+    }
+    let m = mergedData[item[filter]][mergeKey];
+    let i = item[mergeKey];
+    if (Array.isArray(m)) {
+      if (Array.isArray(i))
+        (mergedData[item[filter]][mergeKey] as any[]).push(...(i as any[]));
+      else (mergedData[item[filter]][mergeKey] as any[]).push(i);
+    } else if (!Array.isArray(i))
+      (mergedData[item[filter]][mergeKey] as any[]) = [m, i];
+  });
+  return Object.values(mergedData);
+};
+
+const deepCopy = <T>(data: T): T => {
+  return JSON.parse(JSON.stringify(data));
+};
