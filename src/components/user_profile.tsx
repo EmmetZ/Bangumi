@@ -2,7 +2,7 @@ import { Avatar, Flex, Skeleton, Typography } from 'antd';
 import { useUserContext } from '../contexts/user';
 
 const UserProfile = () => {
-  const { user } = useUserContext();
+  const { state: { user } } = useUserContext();
   // const { data: user, isLoading } = useUser(id);
   if (!user)
     return (

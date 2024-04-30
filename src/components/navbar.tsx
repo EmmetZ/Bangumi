@@ -10,7 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const loc = useLocation();
   const logoStyle = Math.ceil(Math.random() * 6);
-  const { user, dispatch } = useUserContext();
+  const { state: { user }, dispatch } = useUserContext();
   return (
     <Compact
       style={{ padding: 0, display: 'flex', justifyContent: 'space-between' }}

@@ -1,8 +1,8 @@
 import { AxiosRequestConfig, CanceledError } from 'axios';
 import { useEffect, useState } from 'react';
-import ApiClient from '../services/api_client';
 import { DetailedSubject, Subject } from '../types';
 import { ImgType, Person } from './types';
+import { getDetailedSubject, getSubject } from '../services/api';
 
 export const useSubject = (subjectId: string) => {
   // console.log('useSubject', subjectId)
@@ -39,13 +39,11 @@ const _useSubject = <T>(endpoint: string, config: AxiosRequestConfig = {}) => {
   const [data, setData] = useState<T>();
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const client = new ApiClient();
 
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
-    client
-      .getSubject<T>(endpoint, { ...config, signal: controller.signal })
+    getSubject<T>(endpoint, { ...config, signal: controller.signal })
       .then((res) => {
         setData(res);
         setLoading(false);
@@ -68,13 +66,11 @@ const useDetailedSubject = (
   const [data, setData] = useState<DetailedSubject>();
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const client = new ApiClient();
 
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
-    client
-      .getDetailedSubject(subjectId, { ...config, signal: controller.signal })
+    getDetailedSubject(subjectId, { ...config, signal: controller.signal })
       .then((res) => {
         setData(res);
         setLoading(false);

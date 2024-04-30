@@ -3,17 +3,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Spin } from 'antd';
 import { useEffect, useReducer, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import UserContext, { userReducer } from './contexts/user';
+import UserContext, { useUserContext, userReducer } from './contexts/user';
 import router from './router';
-import ApiClient from './services/api_client';
+import { UpdateInterceptor, getUser } from './services/api';
+import axios from 'axios';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const userId = import.meta.env.VITE_USER_ID ?? -1;
   // const userId = -1
-  const [user, dispatch] = useReducer(userReducer, undefined);
-  const client = new ApiClient();
+  const [state, dispatch] = useReducer(userReducer, { user: undefined });
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,10 +21,9 @@ const App = () => {
       setLoading(false);
       return;
     }
-    client
-      .getUser(parseInt(userId))
+    getUser(parseInt(userId))
       .then((res) => {
-        dispatch({ type: 'set', value: res });
+        dispatch({ type: 'set', user: res });
         setLoading(false);
       })
       .catch((err) => {
@@ -33,7 +32,7 @@ const App = () => {
       });
   }, []);
 
-  if (userId !== -1 && !user && isLoading)
+  if (userId !== -1 && state.user === undefined && isLoading)
     return (
       <div
         style={{
@@ -48,7 +47,8 @@ const App = () => {
     );
   return (
     <QueryClientProvider client={queryClient}>
-      <UserContext.Provider value={{ user, dispatch }}>
+      <UserContext.Provider value={{ state, dispatch }}>
+        <UpdateInterceptor />
         <RouterProvider router={router} />
       </UserContext.Provider>
       <ReactQueryDevtools />

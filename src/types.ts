@@ -173,3 +173,11 @@ export interface Topic {
   timestamp: number;
   url: string;
 }
+
+export interface OAuthInfo {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+  refresh_token: string;
+  user_id: number;
+}

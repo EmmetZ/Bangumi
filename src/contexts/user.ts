@@ -1,25 +1,35 @@
 import { Dispatch, createContext, useContext } from 'react';
-import { User } from '../types';
+import { OAuthInfo, User } from '../types';
 
-type UserState = User | undefined;
-
+type UserState = {
+  user: User | undefined;
+  auth?: OAuthInfo;
+};
 
 interface UserAction {
-  type: 'set' | 'remove';
-  value?: User;
+  type: 'set' | 'remove' | 'auth';
+  user?: User;
+  auth?: OAuthInfo;
 }
 
 interface TUserContext {
-  user: UserState;
+  state: UserState;
   dispatch: Dispatch<UserAction>;
 }
 
-export const userReducer = (state: UserState, action: UserAction): UserState => {
+export const userReducer = (
+  state: UserState,
+  action: UserAction
+): UserState => {
   switch (action.type) {
     case 'set':
-      return action.value;
+      return { ...state, user: action.user }
+    case 'auth':
+      return { user: action.user, auth: action.auth }
     case 'remove':
-      return undefined;
+      return { user: undefined }
+    default:
+      return state;
   }
 };
 

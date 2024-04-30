@@ -3,6 +3,8 @@ import { CSSProperties, ReactNode, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import { useUserContext } from '../contexts/user';
+import axios from 'axios';
+import { config } from 'process';
 
 const { Header, Footer, Content } = Layout;
 
@@ -31,6 +33,15 @@ export const DefaultConfigProvider = ({ children }: LayoutProps) => {
 };
 
 export const DefaultLayout = () => {
+  // const { state: {auth}} = useUserContext();
+  
+  // if (auth) {
+  //   axios.interceptors.request.use((config) => {
+  //     config.headers['Authorization'] = `Bearer ${auth.access_token}`;
+  //     return config;
+  //   });
+  // }
+
   return (
     <DefaultConfigProvider>
       <Layout
@@ -87,7 +98,7 @@ const FooterLayout = () => {
 };
 
 export const PrivateLayout = ({ children }: LayoutProps) => {
-  const { user } = useUserContext();
+  const { state: { user } } = useUserContext();
   const navigate = useNavigate();
 
   useEffect(() => {

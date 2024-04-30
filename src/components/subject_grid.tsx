@@ -20,7 +20,7 @@ const rowNum = 6;
 
 const SubjectGrid = () => {
   const { types } = useCollectionContext();
-  const { user } = useUserContext();
+  const { state: { user } } = useUserContext();
 
   const screens = useBreakpoint();
   const bp = Object.entries(screens)
