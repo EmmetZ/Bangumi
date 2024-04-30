@@ -3,7 +3,7 @@ import { OAuthInfo } from '../types';
 import { APP_ID, APP_SECRET } from '../constant';
 
 const config = {
-  redirectUri: 'http://localhost:5173/login',
+  redirectUri: import.meta.env.VITE_REDIRECT_URI ?? 'https://bangumi-me.vercel.app/login',
   authBaseUrl: 'https://bgm.tv/oauth/authorize',
   tokenBaseUrl: 'https://bgm.tv/oauth/access_token',
   apiBaseUrl: 'https://api.bgm.tv',
