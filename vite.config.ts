@@ -15,13 +15,18 @@ export default defineConfig({
         }
     }
   },
-  // server: {
-  //   proxy: {
-  //     '/oauth': {
-  //       target: 'https://bangumi-me.vercel.app',
-  //       changeOrigin: true, // 必须设置为 true，以便代理服务器发送请求的来源似乎是目标域
-  //       // rewrite: path => path.replace(/^\/oauth/, '/oauth')  // 确保重写规则正确
-  //     }
-  //   }
-  // }
+  server: {
+    proxy: {
+      '/oauth': {
+        // target: 'https://bangumi-me.vercel.app',
+        target: 'https://bgm.tv',
+        changeOrigin: true, // 必须设置为 true，以便代理服务器发送请求的来源似乎是目标域
+        // rewrite: path => path.replace(/^\/oauth/, '/oauth')  // 确保重写规则正确
+      },
+      '/subject': {
+        target: 'https://api.bgm.tv',
+        changeOrigin: true,
+      }
+    }
+  }
 })

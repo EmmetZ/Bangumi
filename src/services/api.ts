@@ -102,6 +102,7 @@ export function getDetailedSubject(
   return apiClient
     .get<DetailedSubject>(`/subject/${subjectId}`, {
       ...config,
+      baseURL: '',
       params: {
         ...config.params,
         responseGroup: 'large',

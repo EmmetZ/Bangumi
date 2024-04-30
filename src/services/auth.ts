@@ -3,9 +3,11 @@ import { OAuthInfo } from '../types';
 import { APP_ID, APP_SECRET } from '../constant';
 
 const config = {
-  redirectUri: import.meta.env.VITE_REDIRECT_URI ?? 'https://bangumi-git-oauth-emmetzs-projects.vercel.app/login',
+  redirectUri:
+    import.meta.env.VITE_REDIRECT_URI ??
+    'https://bangumi-git-oauth-emmetzs-projects.vercel.app/login',
   authBaseUrl: 'https://bgm.tv/oauth/authorize',
-  tokenBaseUrl: 'https://bgm.tv/oauth/access_token',
+  tokenBaseUrl: '/oauth/access_token',
   apiBaseUrl: 'https://api.bgm.tv',
 };
 
@@ -19,7 +21,7 @@ export function getAccessToken(code: string) {
   return axios.post<OAuthInfo>(config.tokenBaseUrl, {
     grant_type: 'authorization_code',
     client_id: APP_ID,
-    client_secret: APP_SECRET, 
+    client_secret: APP_SECRET,
     code: code,
     redirect_uri: config.redirectUri,
     state: Date.now(),
